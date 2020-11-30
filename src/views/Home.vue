@@ -9,6 +9,8 @@
 <script>
 import Tree from '@/components/Tree'
 
+const CATEGORIES = ['strafrecht', 'oeffentlichesrecht', 'zivilrecht']
+
 export default {
   name: 'Home',
   components: { Tree },
@@ -18,7 +20,9 @@ export default {
     }
   },
   async created () {
-    const { data } = await this.$axios.get('api/all')
+    const query = this.$route.query
+    const category = CATEGORIES.includes(query.category) ? query.category : 'all'
+    const { data } = await this.$axios.get(`api/${category}`)
     this.files = data
   }
 }
