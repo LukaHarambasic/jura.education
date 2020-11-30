@@ -1,6 +1,6 @@
 <template>
   <header>
-    <base-logo />
+    <base-logo class="logo" />
   </header>
 </template>
 
@@ -12,6 +12,8 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style lang="sass" scoped>
+.logo
+  width: 8rem
+  height: 8rem
 </style>

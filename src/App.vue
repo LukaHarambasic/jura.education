@@ -11,6 +11,7 @@
 <script>
 import LayoutHeader from '@/components/Layout/LayoutHeader'
 import LayoutFooter from '@/components/Layout/LayoutFooter'
+
 export default {
   components: { LayoutFooter, LayoutHeader }
 }
@@ -21,5 +22,5 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale
-  color: $color-primary
+  color: $color-font
 </style>

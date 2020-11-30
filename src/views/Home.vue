@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-    <h1>jura.education</h1>
     <tree v-if="files" :treeData="files" />
     <p v-else>Lädt...</p>
   </div>
