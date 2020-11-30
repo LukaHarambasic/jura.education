@@ -19,11 +19,24 @@ export default {
       files: null
     }
   },
-  async created () {
-    const query = this.$route.query
-    const category = CATEGORIES.includes(query.category) ? query.category : 'all'
-    const { data } = await this.$axios.get(`api/${category}`)
-    this.files = data
+  watch: {
+    '$route.query.category': function (category) {
+      console.debug(`Watching $route.query.category wich is ${category}`)
+      this.load(category)
+    }
+  },
+  created () {
+    const category = this.$route.query.category
+    this.load(category)
+  },
+  methods: {
+    async load (queryCategory) {
+      console.debug(`The query category is ${queryCategory}`)
+      const category = CATEGORIES.includes(queryCategory) ? queryCategory : 'all'
+      console.debug(`The category for request is ${category}`)
+      const { data } = await this.$axios.get(`api/${category}`)
+      this.files = data
+    }
   }
 }
 </script>
