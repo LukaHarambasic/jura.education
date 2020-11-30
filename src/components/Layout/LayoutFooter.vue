@@ -21,6 +21,7 @@ ul
   flex-direction: row
   list-style: none
   padding: 0
+  width: 100%
   li
     margin: 0 .25rem 0 0
     &:last-of-type
