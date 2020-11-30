@@ -25,7 +25,7 @@ function safeReadDirSync (path) {
 }
 
 /**
- * Normalizes windows style paths by replacing double backslahes with single forward slahes (unix style).
+ * Normalizes windows styles paths by replacing double backslahes with single forward slahes (unix styles).
  * @param  {string} path
  * @return {string}
  */

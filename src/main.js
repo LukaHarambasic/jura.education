@@ -8,7 +8,7 @@ Vue.config.productionTip = false
 
 Vue.prototype.$axios = axios
 
-Vue.prototype.$axios.defaults.baseURL = process.env.NODE_ENV === 'production' ? 'https://jearn.vercel.app/' : 'http://localhost:3000/'
+Vue.prototype.$axios.defaults.baseURL = process.env.NODE_ENV === 'production' ? 'https://jura.education/' : 'http://localhost:3000/'
 
 new Vue({
   router,
