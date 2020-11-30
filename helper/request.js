@@ -1,8 +1,4 @@
-'use strict'
-const { join } = require('path')
-const directoryTree = require('../helper/directoryTree')
-
-const allowCors = fn => async (req, res) => {
+const request = fn => async (req, res) => {
   res.setHeader('Access-Control-Allow-Credentials', true)
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Methods', 'GET')
@@ -17,11 +13,4 @@ const allowCors = fn => async (req, res) => {
   return await fn(req, res)
 }
 
-const handler = (req, res) => {
-  console.log('[HANDLER] tree')
-  const path = join(__dirname, './content/')
-  const tree = directoryTree(path)
-  res.status(200).send(tree)
-}
-
-module.exports = allowCors(handler)
+module.exports = request
