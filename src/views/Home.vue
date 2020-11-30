@@ -21,7 +21,7 @@ export default {
   },
   watch: {
     '$route.query.category': function (category) {
-      console.debug(`Watching $route.query.category wich is ${category}`)
+      console.debug(`Watching $route.query.category which is ${category}`)
       this.load(category)
     }
   },
