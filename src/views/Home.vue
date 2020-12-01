@@ -35,11 +35,15 @@ export default {
       const category = CATEGORIES.includes(queryCategory) ? queryCategory : 'all'
       console.debug(`The category for request is ${category}`)
       try {
-        const { data } = await this.$axios.get(`api/${category}`)
+        const ENDPOINT = `api/${category}`
+        console.debug(`Loading data from ${ENDPOINT}`)
+        const { data } = await this.$axios.get(ENDPOINT)
         this.files = data
+        console.debug('Data was loaded from API')
       } catch (e) {
-        console.error('Wasn\'t able to load data, using mock data')
+        console.debug('CATCH')
         this.files = mock
+        console.error('Wasn\'t able to load data, using mock data')
       }
     }
   }
