@@ -43,10 +43,9 @@ export default {
       } catch (e) {
         console.error('Wasn\'t able to load data')
       }
-      console.log('files', this.files)
-      console.log('type', typeof this.files)
       // TODO: remove before release
-      if (this.files === {} || this.files === '' || this.files === null || this.files === undefined || this.files === []) {
+      // is type string if request is empty
+      if (this.files === '') {
         console.debug('Data from API is empty, using mock data.')
         this.files = mock
       }
