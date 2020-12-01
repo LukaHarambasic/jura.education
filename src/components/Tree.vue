@@ -21,7 +21,9 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.tree-list ul
-  padding-left: 16px
-  margin: 6px 0
+.tree-list
+  background: tomato
+  ul
+    padding-left: 16px
+    margin: 6px 0
 </style>

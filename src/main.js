@@ -4,6 +4,8 @@ import router from './router'
 import store from './store'
 import axios from 'axios'
 
+import '@/assets/styles/main.sass'
+
 Vue.config.productionTip = false
 
 Vue.prototype.$axios = axios
