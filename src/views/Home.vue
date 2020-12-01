@@ -7,6 +7,7 @@
 
 <script>
 import Tree from '@/components/Tree'
+import mock from '@/assets/mock.json'
 
 const CATEGORIES = ['strafrecht', 'oeffentlichesrecht', 'zivilrecht']
 
@@ -33,8 +34,13 @@ export default {
       console.debug(`The query category is ${queryCategory}`)
       const category = CATEGORIES.includes(queryCategory) ? queryCategory : 'all'
       console.debug(`The category for request is ${category}`)
-      const { data } = await this.$axios.get(`api/${category}`)
-      this.files = data
+      try {
+        const { data } = await this.$axios.get(`api/${category}`)
+        this.files = data
+      } catch (e) {
+        console.error('Wasn\'t able to load data, using mock data')
+        this.files = mock
+      }
     }
   }
 }
