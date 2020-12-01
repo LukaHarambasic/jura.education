@@ -52,7 +52,6 @@ function isRegExp (regExp) {
  * @return {Object}
  */
 function directoryTree (path, options, onEachFile, onEachDirectory) {
-  console.log(path)
   const name = PATH.basename(path)
   path = options && options.normalizePath ? normalizePath(path) : path
   const item = { path, name }

@@ -6,7 +6,7 @@ const directoryTree = require('../helper/directoryTree')
 const SUB_PATH = 'Zivilrecht'
 
 const handler = (req, res) => {
-  console.log('Requesting all')
+  console.debug('Requesting /zivilrecht')
   const path = join(__dirname, `./content/${SUB_PATH}/`)
   const tree = directoryTree(path)
   res.status(200).send(tree)
