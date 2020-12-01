@@ -22,8 +22,8 @@ export default {
 
 <style lang="sass" scoped>
 .tree-list
-  background: tomato
-  ul
-    padding-left: 16px
-    margin: 6px 0
+  width: 100%
+  height: 100%
+  overflow-x: auto
+  overflow-y: hidden
 </style>
