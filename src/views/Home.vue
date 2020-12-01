@@ -41,9 +41,12 @@ export default {
         this.files = data
         console.debug('Data was loaded from API')
       } catch (e) {
-        console.debug('CATCH')
+        console.error('Wasn\'t able to load data')
+      }
+      // TODO: remove before release
+      if (this.files === {}) {
+        console.debug('Data from API is empty, using mock data.')
         this.files = mock
-        console.error('Wasn\'t able to load data, using mock data')
       }
     }
   }
