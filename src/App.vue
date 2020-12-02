@@ -1,26 +1,24 @@
 <template>
   <div id="app">
-    <layout-header />
     <main>
-      <router-view/>
+      <router-view />
     </main>
-    <layout-footer />
+    <layout-footer class="footer" />
   </div>
 </template>
 
 <script>
-import LayoutHeader from '@/components/Layout/LayoutHeader'
 import LayoutFooter from '@/components/Layout/LayoutFooter'
 
 export default {
-  components: { LayoutFooter, LayoutHeader }
+  components: { LayoutFooter }
 }
 </script>
 
 <style lang="sass">
 #app
-  font-family: Avenir, Helvetica, Arial, sans-serif
-  -webkit-font-smoothing: antialiased
-  -moz-osx-font-smoothing: grayscale
-  color: $color-font
+  margin: 2rem
+  width: calc(100% - ( 2 * 2rem))
+  height: 100%
+  > .footer
 </style>

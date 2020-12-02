@@ -63,17 +63,18 @@ export default {
   flex-wrap: nowrap
   justify-content: flex-start
   align-content: stretch
+  align-items: stretch
   min-width: 25rem
   height: 100%
   width: 100%
-  overflow-x: auto
+  overflow-x: scroll
   overflow-y: hidden
   border: 2px solid $color-accent
   background: rgba($color-accent, 0.05)
 .column
-  height: 50rem
   border-right: 2px solid $color-accent
   background: #fff
+  max-width: calc((100% / 3) - (2 * 2px))
   &:last-of-type
     margin: 0 1rem 0 0 // to never toiuch the border
 ul

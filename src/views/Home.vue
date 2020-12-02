@@ -60,3 +60,8 @@ export default {
   }
 }
 </script>
+
+<style lang="sass" scoped>
+.home
+  height: 100%
+</style>
