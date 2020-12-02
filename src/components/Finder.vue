@@ -1,5 +1,8 @@
 <template>
-  <div class="finder">
+  <div
+    class="finder"
+    ref="finder"
+  >
     <div
       class="column"
       :key="i"
@@ -49,6 +52,11 @@ export default {
       console.debug(`hasChildren: ${hasChildren}`)
       if (hasChildren) {
         this.columns.push(children)
+        const finder = this.$refs.finder
+        this.$nextTick(() => {
+          const columnWidth = (finder.clientWidth / 3)
+          finder.scrollLeft = finder.scrollWidth + columnWidth
+        })
         // TODO: change query params
       }
     }
@@ -68,15 +76,13 @@ export default {
   height: 100%
   width: 100%
   overflow-x: scroll
-  overflow-y: hidden
+  overflow-y: auto
   border: 2px solid $color-accent
   background: rgba($color-accent, 0.05)
 .column
   border-right: 2px solid $color-accent
   background: #fff
-  min-width: calc((100% / 3) - (2 * 2px))
-  &:last-of-type
-    margin: 0 1rem 0 0 // to never toiuch the border
+  min-width: calc((100% / 3) - (2 * 2px) - 1rem)
 ul
   li
     padding: 1rem 2rem
