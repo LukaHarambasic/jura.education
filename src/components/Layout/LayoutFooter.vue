@@ -27,7 +27,7 @@ footer
   align-content: center
   align-items: center
   position: absolute
-  margin: 4rem
+  margin: 1rem 4rem
   bottom: 0
   left: 0
   width: calc(100% - ( 2 * 4rem))
