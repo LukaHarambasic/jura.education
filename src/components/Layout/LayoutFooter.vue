@@ -42,7 +42,7 @@ footer
   padding: 0
   width: 100%
   li
-    margin: 0 .25rem 0 0
+    margin: 0 1rem 0 0
     &:last-of-type
       margin: 0
 .logo

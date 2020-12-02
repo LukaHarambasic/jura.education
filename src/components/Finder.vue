@@ -74,7 +74,7 @@ export default {
 .column
   border-right: 2px solid $color-accent
   background: #fff
-  max-width: calc((100% / 3) - (2 * 2px))
+  min-width: calc((100% / 3) - (2 * 2px))
   &:last-of-type
     margin: 0 1rem 0 0 // to never toiuch the border
 ul
