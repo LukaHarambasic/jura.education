@@ -113,6 +113,7 @@ export default {
   methods: {
     hasChildren: (child) => child.children.length > 0,
     selectChild (child, index) {
+      removeAllSelects()
       if (child === undefined) return
       // deep clone to make self comparison
       const children = child.children
@@ -168,4 +169,9 @@ ul
         cursor: pointer
     &.isSelected
       background: rgba($color-primary, 0.2)
+    &.isActive
+      background: $color-primary
+      color: $color-light
+    &.wasActive
+      background: pink
 </style>
