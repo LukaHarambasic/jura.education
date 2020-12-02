@@ -7,6 +7,8 @@
       class="column"
       :key="i"
       v-for="(column, i) in columns"
+      :ref="`column-${i}`"
+      :id="`column-${i}`"
     >
       <ul>
         <li
@@ -22,6 +24,12 @@
 </template>
 
 <script>
+
+const selectCurrent = (element) => element.classList.add('isSelected')
+const selectNext = (element) => element.nextElementSibling.classList.add('isSelected')
+const selectPrevious = (element) => element.previousElementSibling.classList.add('isSelected')
+const removeSelect = (element) => element.classList.remove('isSelected')
+
 export default {
   name: 'Finder',
   data () {
@@ -37,6 +45,46 @@ export default {
   },
   created () {
     this.columns = [this.files]
+
+    document.addEventListener('keydown', (event) => {
+      const hasOneElementSelected = document.querySelector('.finder').querySelectorAll('.isSelected').length > 0
+      // nothing else is selected - set starting point
+      if (!hasOneElementSelected) {
+        const columnList = document.querySelector('#column-0 ul')
+        const listElement = columnList.childNodes[0]
+        selectCurrent(listElement)
+      }
+      const selected = document.querySelector('.isSelected')
+      if (event.key === 'ArrowRight') {
+        console.log('ArrowRight')
+        // open next column with this.selectChild(), not sure where to get params from
+      }
+      if (event.key === 'ArrowLeft') {
+        console.log('ArrowLeft')
+        // remove latest column if not first colum
+      }
+      if (event.key === 'ArrowUp') {
+        console.log('ArrowDown')
+        if (selected.previousElementSibling !== null) {
+          selectPrevious(selected)
+        } else {
+          const listElements = selected.parentElement.childNodes
+          const lastListElement = listElements[listElements.length - 1]
+          selectCurrent(lastListElement)
+        }
+        removeSelect(selected)
+      }
+      if (event.key === 'ArrowDown') {
+        console.log('ArrowDown')
+        if (selected.nextElementSibling !== null) {
+          selectNext(selected)
+        } else {
+          const firstListElement = selected.parentElement.childNodes[0]
+          selectCurrent(firstListElement)
+        }
+        removeSelect(selected)
+      }
+    })
     // TODO read query params
   },
   methods: {
@@ -96,4 +144,6 @@ ul
       &:hover
         background: rgba($color-accent, 0.05)
         cursor: pointer
+    &.isSelected
+      background: rgba($color-primary, 0.2)
 </style>
