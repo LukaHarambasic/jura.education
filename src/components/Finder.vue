@@ -11,6 +11,7 @@
           v-for="(child, j) in column"
           @click="selectChild(child, i)"
           v-text="child.name"
+          :class="{'hasChildren': hasChildren(child)}"
         />
       </ul>
     </div>
@@ -18,8 +19,6 @@
 </template>
 
 <script>
-const clone = (items) => items.map(item => Array.isArray(item) ? clone(item) : item)
-
 export default {
   name: 'Finder',
   data () {
@@ -38,19 +37,17 @@ export default {
     // TODO read query params
   },
   methods: {
+    hasChildren: (child) => child.children.length > 0,
     selectChild (child, index) {
       console.debug('Select child')
       // deep clone to make self comparison
-      const children = clone(child.children)
-      console.log(children)
-      // remove all other children after this a click
+      const children = child.children
+      // deletes all columns after the clicked column
+      this.columns.length = index + 1
       // add children as new entry to columns
-      const hasChildren = children.length > 0
-      // dieser dumme vergleich muss passen
-      const childrenAreNotAlreadyAdded = this.columns.length === index + 1 ? true : children !== this.columns[index + 1].children
+      const hasChildren = this.hasChildren(child)
       console.debug(`hasChildren: ${hasChildren}`)
-      console.debug(`childrenAreNotIdentical: ${childrenAreNotAlreadyAdded}`)
-      if (hasChildren && childrenAreNotAlreadyAdded) {
+      if (hasChildren) {
         this.columns.push(children)
         // TODO: change query params
       }
@@ -71,14 +68,25 @@ export default {
   width: 100%
   overflow-x: auto
   overflow-y: hidden
+  border: 2px solid $color-accent
+  background: rgba($color-accent, 0.05)
 .column
   height: 50rem
-  border: 2px solid $color-accent
+  border-right: 2px solid $color-accent
+  background: #fff
+  &:last-of-type
+    margin: 0 1rem 0 0 // to never toiuch the border
 ul
   li
     padding: 1rem 2rem
     border-bottom: 1px solid rgba($color-accent, 0.5)
-    &:hover
-      background: rgba($color-accent, 0.05)
-      cursor: pointer
+    display: block
+    &.hasChildren
+      &:after
+        content: '>'
+        font-weight: bold
+        margin: 0 0 0 .5rem
+      &:hover
+        background: rgba($color-accent, 0.05)
+        cursor: pointer
 </style>
