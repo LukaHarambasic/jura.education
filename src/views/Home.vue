@@ -1,7 +1,12 @@
 <template>
   <div class="home">
-    <tree v-if="files" :treeData="files" />
-    <p v-else>Lädt...</p>
+    <tree
+      v-if="files"
+      :tree-data="files"
+    />
+    <p v-else>
+      Lädt...
+    </p>
   </div>
 </template>
 

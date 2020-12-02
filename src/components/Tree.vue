@@ -12,7 +12,10 @@ import TreeNode from '@/components/TreeNode'
 export default {
   name: 'Tree',
   props: {
-    treeData: Object
+    treeData: {
+      type: Object,
+      required: true
+    }
   },
   components: {
     TreeNode

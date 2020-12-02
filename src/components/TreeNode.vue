@@ -1,9 +1,25 @@
 <template>
-  <li class="tree-node" v-if="node">
-    <strong class="label" @click="toggleSelect()">{{ node.name }}</strong>
-    <p v-if="node.extension === '.md'">{{ node.markdown }}</p>
-    <ul v-if="node.children && node.children.length" class="child" :class="{ visible: isParentSelected }">
-      <tree-node v-for="child in node.children" :node="child" :key="child.name" />
+  <li
+    class="tree-node"
+    v-if="node"
+  >
+    <strong
+      class="label"
+      @click="toggleSelect()"
+    >{{ node.name }}</strong>
+    <p v-if="node.extension === '.md'">
+      {{ node.markdown }}
+    </p>
+    <ul
+      v-if="node.children && node.children.length"
+      class="child"
+      :class="{ visible: isParentSelected }"
+    >
+      <tree-node
+        v-for="child in node.children"
+        :node="child"
+        :key="child.name"
+      />
     </ul>
   </li>
 </template>
@@ -12,7 +28,10 @@
 export default {
   name: 'TreeNode',
   props: {
-    node: Object
+    node: {
+      type: Object,
+      required: true
+    }
   },
   data () {
     return {
