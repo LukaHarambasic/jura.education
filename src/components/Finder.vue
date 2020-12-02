@@ -8,7 +8,7 @@
       :key="i"
       v-for="(column, i) in columns"
       :ref="`column-${i}`"
-      :id="`column-${i}`"
+      :class="`column-${i}`"
     >
       <ul>
         <li
@@ -25,10 +25,21 @@
 
 <script>
 
-const selectCurrent = (element) => element.classList.add('isSelected')
-const selectNext = (element) => element.nextElementSibling.classList.add('isSelected')
-const selectPrevious = (element) => element.previousElementSibling.classList.add('isSelected')
-const removeSelect = (element) => element.classList.remove('isSelected')
+const FINDER_SELECTOR = '.finder'
+const SELECTED = 'isSelected'
+const SELECTED_SELECTOR = `.${SELECTED}`
+const COLUMN_SELECTOR = '.column'
+const COLUMN_INDEX_SELECTOR = (columnIndex) => `${COLUMN_SELECTOR}-${columnIndex}`
+
+const selectCurrent = (element) => element.classList.add(SELECTED)
+const selectNext = (element) => element.nextElementSibling.classList.add(SELECTED)
+const selectPrevious = (element) => element.previousElementSibling.classList.add(SELECTED)
+const removeSelect = (element) => element.classList.remove(SELECTED)
+const removeAllSelects = () => {
+  Array.from(document.querySelectorAll(`${COLUMN_SELECTOR} ul`)).forEach(column => {
+    column.childNodes.forEach(item => item.classList.remove(SELECTED))
+  })
+}
 
 export default {
   name: 'Finder',
@@ -47,21 +58,33 @@ export default {
     this.columns = [this.files]
 
     document.addEventListener('keydown', (event) => {
-      const hasOneElementSelected = document.querySelector('.finder').querySelectorAll('.isSelected').length > 0
+      const hasOneElementSelected = document.querySelector(FINDER_SELECTOR).querySelectorAll(SELECTED_SELECTOR).length > 0
+      const columnIndex = this.columns.length - 1
+      const columnElements = document.querySelector(`${COLUMN_INDEX_SELECTOR(columnIndex)} ul`)
+      const columnElementsArray = Array.from(columnElements.childNodes)
+      const itemIndex = columnElementsArray.findIndex(item => item.classList.contains(SELECTED))
       // nothing else is selected - set starting point
       if (!hasOneElementSelected) {
-        const columnList = document.querySelector('#column-0 ul')
-        const listElement = columnList.childNodes[0]
+        const listElement = columnElements.childNodes[0]
         selectCurrent(listElement)
       }
-      const selected = document.querySelector('.isSelected')
+      const selected = document.querySelector(SELECTED_SELECTOR)
+      // TODO: could be a switch?
       if (event.key === 'ArrowRight') {
         console.log('ArrowRight')
-        // open next column with this.selectChild(), not sure where to get params from
+        const child = this.columns[columnIndex][itemIndex]
+        this.selectChild(child, columnIndex)
+        // remove all .isSelected classes
+        removeAllSelects()
+        // add .isSelected to newest column at first li
+        selectCurrent(columnElements.childNodes[0])
       }
       if (event.key === 'ArrowLeft') {
         console.log('ArrowLeft')
-        // remove latest column if not first colum
+        // remove latest column if not first column
+        this.columns.pop()
+        removeAllSelects()
+        selectCurrent(columnElements.childNodes[0])
       }
       if (event.key === 'ArrowUp') {
         console.log('ArrowDown')
@@ -90,14 +113,13 @@ export default {
   methods: {
     hasChildren: (child) => child.children.length > 0,
     selectChild (child, index) {
-      console.debug('Select child')
+      if (child === undefined) return
       // deep clone to make self comparison
       const children = child.children
       // deletes all columns after the clicked column
       this.columns.length = index + 1
       // add children as new entry to columns
       const hasChildren = this.hasChildren(child)
-      console.debug(`hasChildren: ${hasChildren}`)
       if (hasChildren) {
         this.columns.push(children)
         const finder = this.$refs.finder
