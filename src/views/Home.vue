@@ -1,8 +1,8 @@
 <template>
   <div class="home">
-    <tree
+    <finder
       v-if="files"
-      :tree-data="files"
+      :files="files"
     />
     <p v-else>
       Lädt...
@@ -11,14 +11,14 @@
 </template>
 
 <script>
-import Tree from '@/components/Tree'
+import Finder from '@/components/Finder'
 import mock from '@/assets/mock.json'
 
 const CATEGORIES = ['strafrecht', 'oeffentlichesrecht', 'zivilrecht']
 
 export default {
   name: 'Home',
-  components: { Tree },
+  components: { Finder },
   data () {
     return {
       files: null
@@ -43,16 +43,16 @@ export default {
         const ENDPOINT = `api/${category}`
         console.debug(`Loading data from ${ENDPOINT}`)
         const { data } = await this.$axios.get(ENDPOINT)
-        this.files = data
+        this.files = data.children
         console.debug('Data was loaded from API')
       } catch (e) {
         console.error('Wasn\'t able to load data')
       }
       // TODO: remove before release
-      // is type string if request is empty
-      if (this.files === '') {
-        console.debug('Data from API is empty, using mock data.')
-        this.files = mock
+      // is type string if request is empty or still initial
+      if (this.files === '' || this.files === null) {
+        console.debug('Data from API is empty or initial, using mock data.')
+        this.files = mock.children
       }
     }
   }
