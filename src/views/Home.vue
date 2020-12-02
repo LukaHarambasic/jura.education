@@ -44,7 +44,7 @@ export default {
         console.debug(`Loading data from ${ENDPOINT}`)
         const { data } = await this.$axios.get(ENDPOINT)
         this.files = data.children
-        console.debug('Data was loaded from API')
+        console.debug('Data was loaded from API', this.files)
       } catch (e) {
         console.error('Wasn\'t able to load data')
       }
