@@ -72,9 +72,6 @@ export default {
     // TODO read query params
   },
   methods: {
-    states (item) {
-      return item.states ? item.states : {}
-    },
     selectItem (item, columnIndex, itemIndex) {
       if (item === undefined) return
       // deletes all columns after the clicked column
@@ -82,13 +79,16 @@ export default {
       if (item.state.hasChildren) {
         this.columns = addColumn(this.columns, item.children)
         this.columns = setWasSelected(this.columns, columnIndex, itemIndex)
-        const finder = this.$refs.finder
-        this.$nextTick(() => {
-          const columnWidth = (finder.clientWidth / 3)
-          finder.scrollLeft = finder.scrollWidth + columnWidth
-        })
+        this.scrollToLeft()
         // TODO: change query params
       }
+    },
+    scrollToLeft () {
+      const finder = this.$refs.finder
+      this.$nextTick(() => {
+        const columnWidth = (finder.clientWidth / 3)
+        finder.scrollLeft = finder.scrollWidth + columnWidth
+      })
     }
   }
 }
