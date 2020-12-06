@@ -1,4 +1,12 @@
 // TODO: file has to be renamed
+
+/**
+ * "columns[]" contains one to n "column[]".
+ * One "column[]" contains oen to multiple "item{}",
+ * an "item{}" represents a folder or a file name.
+ * columns[] -> column[] -> item{}
+ */
+
 /**
  * Set's the initial column
  * @param files
@@ -62,6 +70,12 @@ export const setWasSelected = (columns, columnIndex, itemIndex) => {
   })
 }
 
+/**
+ * Returns cropped columns
+ * @param columns
+ * @param length
+ * @returns {*}
+ */
 export const cropColumns = (columns, length) => {
   return columns.slice(0, length)
 }
