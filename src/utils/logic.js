@@ -2,11 +2,12 @@
 
 export const setup = (files) => {
   console.debug('setup')
-  return [files].map(items => {
-    return items.map(item => {
+  // files is an object, so it's converted to an array to use map()
+  return [files].map(_items => {
+    return _items.map(_item => {
       return {
-        ...item,
-        state: defaultState(item)
+        ..._item,
+        state: defaultState(_item)
       }
     })
   })
@@ -14,13 +15,12 @@ export const setup = (files) => {
 
 export const addColumn = (columns, children) => {
   console.debug('addColumn')
-  console.log(children)
   return [
     ...columns,
-    children.map(item => {
+    children.map(_item => {
       return {
-        ...item,
-        state: defaultState(item)
+        ..._item,
+        state: defaultState(_item)
       }
     })
   ]
@@ -33,3 +33,33 @@ export const defaultState = (item, isSelected = false, wasSelected = false) => {
     hasChildren: item.children ? item.children.length > 0 : false
   }
 }
+
+// tried to make this functional
+// columns could be directly modified and returned
+export const setWasSelected = (columns, columnIndex, itemIndex) => {
+  console.debug('setWasSelected')
+  return columns.map((_column, _columnIndex) => {
+    if (columnIndex === _columnIndex) {
+      return _column.map((_item, _itemIndex) => {
+        return {
+          ..._item,
+          state: defaultState(_item, false, itemIndex === _itemIndex)
+        }
+      })
+    } else {
+      return _column
+    }
+  })
+}
+
+// maybe relevant for arrow navigation
+// export const setIsSelected = (columns, columnIndex, itemIndex) => {
+//   const columnsCopy = columns
+//   columnsCopy[columnIndex] = columns[columnIndex].map((item, index) => {
+//     return {
+//       ...item,
+//       state: defaultState(item, itemIndex === index)
+//     }
+//   })
+//   return columnsCopy
+// }

@@ -27,7 +27,7 @@
 
 <script>
 
-import { setup, addColumn } from '@/utils/logic'
+import { setup, addColumn, setWasSelected } from '@/utils/logic'
 import {
   downArrowPressed,
   leftArrowPressed,
@@ -80,11 +80,8 @@ export default {
       // deletes all columns after the clicked column
       this.columns.length = columnIndex + 1
       if (item.state.hasChildren) {
-        // TODO reset all wasSelected
-        item.state.wasSelected = true
         this.columns = addColumn(this.columns, item.children)
-        console.log('this.columns')
-        console.log(this.columns)
+        this.columns = setWasSelected(this.columns, columnIndex, itemIndex)
         const finder = this.$refs.finder
         this.$nextTick(() => {
           const columnWidth = (finder.clientWidth / 3)
@@ -129,8 +126,9 @@ ul
       &:hover
         background: rgba($color-accent, 0.05)
         cursor: pointer
-    &.isSelected
+    &.isSelected.wasSelected
       background: deeppink
     &.wasSelected
-      background: greenyellow
+      font-weight: bold
+      background: rgba($color-accent, 0.1)
 </style>
