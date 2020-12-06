@@ -79,11 +79,11 @@ export default {
       if (item.state.hasChildren) {
         this.columns = addColumn(this.columns, item.children)
         this.columns = setWasSelected(this.columns, columnIndex, itemIndex)
-        this.scrollToLeft()
+        this.scrollToRight()
         // TODO: change query params
       }
     },
-    scrollToLeft () {
+    scrollToRight () {
       const finder = this.$refs.finder
       this.$nextTick(() => {
         const columnWidth = (finder.clientWidth / 3)
