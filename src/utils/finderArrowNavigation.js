@@ -1,7 +1,9 @@
 import { defaultState } from '@/utils/logic'
 
-export const setupArrows = (columns) => {
+export const setupArrows = (event, columns) => {
   console.debug('setupArrows')
+  const POSSIBLE_KEYS = ['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown']
+  if (POSSIBLE_KEYS.includes(event.key) < 1) return
   // only first column exists
   if (columns.length === 1) {
     const item = columns[0][0]
@@ -54,14 +56,14 @@ const findItem = () => {
 
 // eslint-disable-next-line no-unused-vars
 const setWasSelected = (item) => {
-  console.debug('addStateWasSelected')
-  return item.state.wasSelected === true
+  console.debug('setWasSelected')
+  item.state.wasSelected = true
 }
 
 const setIsSelected = (item) => {
-  console.debug('addStateIsSelected')
+  console.debug('setIsSelected')
   // TODO: this is a call by reference right?
-  return item.state.isSelected === true
+  item.state.isSelected = true
 }
 
 // eslint-disable-next-line no-unused-vars

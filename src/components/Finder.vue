@@ -53,18 +53,20 @@ export default {
     this.columns = setup(this.files)
     // keyboard event listener
     document.addEventListener('keydown', (event) => {
-      setupArrows(this.columns)
-      if (event.key === 'ArrowRight') {
-        rightArrowPressed()
-      }
-      if (event.key === 'ArrowLeft') {
-        leftArrowPressed()
-      }
-      if (event.key === 'ArrowUp') {
-        upArrowPressed()
-      }
-      if (event.key === 'ArrowDown') {
-        downArrowPressed()
+      setupArrows(event, this.columns)
+      switch (event.key) {
+        case 'ArrowRight':
+          rightArrowPressed()
+          break
+        case 'ArrowLeft':
+          leftArrowPressed()
+          break
+        case 'ArrowUp':
+          upArrowPressed()
+          break
+        case 'ArrowDown':
+          downArrowPressed()
+          break
       }
     })
     // TODO read query params
