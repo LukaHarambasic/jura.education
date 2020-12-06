@@ -27,7 +27,7 @@
 
 <script>
 
-import { setup, addColumn, setWasSelected } from '@/utils/logic'
+import { setup, addColumn, setWasSelected, cropColumns } from '@/utils/logic'
 import {
   downArrowPressed,
   leftArrowPressed,
@@ -74,8 +74,7 @@ export default {
   methods: {
     selectItem (item, columnIndex, itemIndex) {
       if (item === undefined) return
-      // deletes all columns after the clicked column
-      this.columns.length = columnIndex + 1
+      this.columns = cropColumns(this.columns, columnIndex + 1)
       if (item.state.hasChildren) {
         this.columns = addColumn(this.columns, item.children)
         this.columns = setWasSelected(this.columns, columnIndex, itemIndex)

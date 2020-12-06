@@ -62,6 +62,10 @@ export const setWasSelected = (columns, columnIndex, itemIndex) => {
   })
 }
 
+export const cropColumns = (columns, length) => {
+  return columns.slice(0, length)
+}
+
 /**
  * Sets the default states for an item, but also can handle inputs, e.g. setWasSelected()
  * @param item
