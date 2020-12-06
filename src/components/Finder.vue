@@ -5,18 +5,20 @@
   >
     <div
       class="column"
-      :key="i"
-      v-for="(column, i) in columns"
-      :ref="`column-${i}`"
-      :class="`column-${i}`"
+      :key="columnIndex"
+      v-for="(column, columnIndex) in columns"
     >
       <ul>
         <li
-          :key="j"
-          v-for="(child, j) in column"
-          @click="selectChild(child, i)"
-          v-text="child.name"
-          :class="{'hasChildren': hasChildren(child)}"
+          :key="itemIndex"
+          v-for="(item, itemIndex) in column"
+          @click="selectItem(item, columnIndex, itemIndex)"
+          v-text="item.name"
+          :class="{
+            'hasChildren': item.state.hasChildren,
+            'isSelected': item.state.isSelected,
+            'wasSelected': item.state.wasSelected
+          }"
         />
       </ul>
     </div>
@@ -25,21 +27,14 @@
 
 <script>
 
-const FINDER_SELECTOR = '.finder'
-const SELECTED = 'isSelected'
-const SELECTED_SELECTOR = `.${SELECTED}`
-const COLUMN_SELECTOR = '.column'
-const COLUMN_INDEX_SELECTOR = (columnIndex) => `${COLUMN_SELECTOR}-${columnIndex}`
-
-const selectCurrent = (element) => element.classList.add(SELECTED)
-const selectNext = (element) => element.nextElementSibling.classList.add(SELECTED)
-const selectPrevious = (element) => element.previousElementSibling.classList.add(SELECTED)
-const removeSelect = (element) => element.classList.remove(SELECTED)
-const removeAllSelects = () => {
-  Array.from(document.querySelectorAll(`${COLUMN_SELECTOR} ul`)).forEach(column => {
-    column.childNodes.forEach(item => item.classList.remove(SELECTED))
-  })
-}
+import { setup, addColumn } from '@/utils/logic'
+import {
+  downArrowPressed,
+  leftArrowPressed,
+  rightArrowPressed,
+  setupArrows,
+  upArrowPressed
+} from '@/utils/finderArrowNavigation'
 
 export default {
   name: 'Finder',
@@ -55,74 +50,39 @@ export default {
     }
   },
   created () {
-    this.columns = [this.files]
-
+    this.columns = setup(this.files)
+    // keyboard event listener
     document.addEventListener('keydown', (event) => {
-      const hasOneElementSelected = document.querySelector(FINDER_SELECTOR).querySelectorAll(SELECTED_SELECTOR).length > 0
-      const columnIndex = this.columns.length - 1
-      const columnElements = document.querySelector(`${COLUMN_INDEX_SELECTOR(columnIndex)} ul`)
-      const columnElementsArray = Array.from(columnElements.childNodes)
-      const itemIndex = columnElementsArray.findIndex(item => item.classList.contains(SELECTED))
-      // nothing else is selected - set starting point
-      if (!hasOneElementSelected) {
-        const listElement = columnElements.childNodes[0]
-        selectCurrent(listElement)
-      }
-      const selected = document.querySelector(SELECTED_SELECTOR)
-      // TODO: could be a switch?
+      setupArrows(this.columns)
       if (event.key === 'ArrowRight') {
-        console.log('ArrowRight')
-        const child = this.columns[columnIndex][itemIndex]
-        this.selectChild(child, columnIndex)
-        // remove all .isSelected classes
-        removeAllSelects()
-        // add .isSelected to newest column at first li
-        selectCurrent(columnElements.childNodes[0])
+        rightArrowPressed()
       }
       if (event.key === 'ArrowLeft') {
-        console.log('ArrowLeft')
-        // remove latest column if not first column
-        this.columns.pop()
-        removeAllSelects()
-        selectCurrent(columnElements.childNodes[0])
+        leftArrowPressed()
       }
       if (event.key === 'ArrowUp') {
-        console.log('ArrowDown')
-        if (selected.previousElementSibling !== null) {
-          selectPrevious(selected)
-        } else {
-          const listElements = selected.parentElement.childNodes
-          const lastListElement = listElements[listElements.length - 1]
-          selectCurrent(lastListElement)
-        }
-        removeSelect(selected)
+        upArrowPressed()
       }
       if (event.key === 'ArrowDown') {
-        console.log('ArrowDown')
-        if (selected.nextElementSibling !== null) {
-          selectNext(selected)
-        } else {
-          const firstListElement = selected.parentElement.childNodes[0]
-          selectCurrent(firstListElement)
-        }
-        removeSelect(selected)
+        downArrowPressed()
       }
     })
     // TODO read query params
   },
   methods: {
-    hasChildren: (child) => child.children.length > 0,
-    selectChild (child, index) {
-      removeAllSelects()
-      if (child === undefined) return
-      // deep clone to make self comparison
-      const children = child.children
+    states (item) {
+      return item.states ? item.states : {}
+    },
+    selectItem (item, columnIndex, itemIndex) {
+      if (item === undefined) return
       // deletes all columns after the clicked column
-      this.columns.length = index + 1
-      // add children as new entry to columns
-      const hasChildren = this.hasChildren(child)
-      if (hasChildren) {
-        this.columns.push(children)
+      this.columns.length = columnIndex + 1
+      if (item.state.hasChildren) {
+        // TODO reset all wasSelected
+        item.state.wasSelected = true
+        this.columns = addColumn(this.columns, item.children)
+        console.log('this.columns')
+        console.log(this.columns)
         const finder = this.$refs.finder
         this.$nextTick(() => {
           const columnWidth = (finder.clientWidth / 3)
@@ -168,10 +128,7 @@ ul
         background: rgba($color-accent, 0.05)
         cursor: pointer
     &.isSelected
-      background: rgba($color-primary, 0.2)
-    &.isActive
-      background: $color-primary
-      color: $color-light
-    &.wasActive
-      background: pink
+      background: deeppink
+    &.wasSelected
+      background: greenyellow
 </style>
