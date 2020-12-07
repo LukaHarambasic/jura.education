@@ -5,7 +5,7 @@
       v-if="!isOnboarded"
     >
       <button
-        class="close"
+        class="button"
         @click="close"
       >
         Schließen
@@ -19,6 +19,12 @@
       </div>
     </div>
     <div class="container">
+      <button
+        class="button"
+        @click="open"
+      >
+        BETA
+      </button>
       <main>
         <router-view />
       </main>
@@ -46,6 +52,10 @@ export default {
       window.localStorage.setItem('isOnboarded', true.toString())
       this.setIsOnboarded()
     },
+    open () {
+      window.localStorage.setItem('isOnboarded', false.toString())
+      this.setIsOnboarded()
+    },
     setIsOnboarded () {
       const localStorageIsOnboarded = window.localStorage.getItem('isOnboarded')
       this.isOnboarded = localStorageIsOnboarded === null ? false : localStorageIsOnboarded === 'true'
@@ -68,6 +78,21 @@ export default {
   > main
     flex: 1 1 auto
   > .footer
+.button
+  position: absolute
+  top: 1rem
+  right: 4rem
+  padding: 1rem 1rem
+  background: $color-primary
+  color: $color-light
+  font-size: 1rem
+  letter-spacing: 2px
+  transition: $animation
+  border: 1px solid $color-primary
+  &:hover
+    cursor: pointer
+    background: $color-light
+    color: $color-primary
 .modal
   z-index: 500
   position: absolute
@@ -81,21 +106,6 @@ export default {
   flex-wrap: nowrap
   justify-content: flex-start
   align-items: center
-  .close
-    position: absolute
-    top: 1rem
-    right: 1rem
-    padding: 1rem 1rem
-    background: $color-primary
-    color: $color-light
-    border: none
-    font-size: 1rem
-    letter-spacing: 2px
-    transition: $animation
-    &:hover
-      cursor: pointer
-      background: $color-light
-      color: $color-primary
   .content
     width: 64rem
     margin: 4rem
