@@ -104,4 +104,9 @@ export default {
       font-size: 1.2rem
       line-height: 1.7
       margin: 2rem 0 0 0
+    a
+      color: $color-primary
+      font-weight: bold
+      &:hover
+        text-decoration: none
 </style>
