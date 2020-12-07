@@ -26,14 +26,7 @@
 </template>
 
 <script>
-
 import { setup, addColumn, setWasSelected, cropColumns } from '@/utils/logic'
-import {
-  downArrowPressed,
-  leftArrowPressed,
-  rightArrowPressed, setupArrows,
-  upArrowPressed
-} from '@/utils/finderArrowNavigation'
 
 export default {
   name: 'Finder',

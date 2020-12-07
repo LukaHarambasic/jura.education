@@ -1,9 +1,29 @@
 <template>
   <div id="app">
-    <main>
-      <router-view />
-    </main>
-    <layout-footer class="footer" />
+    <div
+      class="modal"
+      v-if="!isOnboarded"
+    >
+      <button
+        class="close"
+        @click="close"
+      >
+        Schließen
+      </button>
+      <div class="content">
+        <h2>Willkommen</h2>
+        <p>Herzlich Willkommen auf jura.education. Du bist einer der ersten Nutzer dieser neuen Lernplattform für Jurastudierende. Herzlichen Glückwunsch! Frag dich selbst, ob dich jemand als Streber sieht, der die Wirksamkeit dieser neuen Lernmethode einschätzen kann, oder ob du als hoffnungsloser Fall giltst, dem man auf diesem Wege zumindest ein bisschen Juraverständnis in den Kopf prügeln kann.</p>
+        <p>Genug der netten Worte. Auf der folgenden Seite findest du eine Übersicht, die für sich beansprucht, möglichst viele Schemata zu allen examensrelevanten Rechtsgebieten in einem übersichtlichen Prüfungsaufbau zu kombinieren. Per Maus oder per Pfeiltasten kannst du dich durch die verschiedenen Prüfungsschemata klicken. Das Ganze ist recht intuitiv und sollte durch ‚learning by doing‘ schnell verinnerlicht sein.</p>
+        <p>Zum weiteren Verständnis: Das große Ziel dieser Seite ist es nicht nur, die vielen Schemata übersichtlich darzustellen, sondern vor allem, examensrelevante Problemfelder an den Stellen der Prüfung einzuordnen, wo sie hingehören. Wir befinden uns noch ganz am Anfang, entsprechend dürftig sind derzeit noch die Inhalte.</p>
+        <p>Die Seite soll im Sinne einer Open-Source-Plattform beständig wachsen. Um dorthin zu kommen, ist allerdings zunächst erforderlich, das ganze System auf Herz und Nieren zu überprüfen. Sollten dir also Schwachstellen oder Verbesserungsmöglichkeiten auffallen, schreibe gerne eine Nachricht <a href="mailto:hallo@jura.education">hierhin</a>. Vielen Dank für deine Mithilfe!</p>
+      </div>
+    </div>
+    <div class="container">
+      <main>
+        <router-view />
+      </main>
+      <layout-footer class="footer" />
+    </div>
   </div>
 </template>
 
@@ -11,12 +31,31 @@
 import LayoutFooter from '@/components/Layout/LayoutFooter'
 
 export default {
-  components: { LayoutFooter }
+  components: { LayoutFooter },
+  data () {
+    return {
+      isOnboarded: false
+    }
+  },
+  created () {
+    this.setIsOnboarded()
+    console.log('isOnboarded', this.isOnboarded)
+  },
+  methods: {
+    close () {
+      window.localStorage.setItem('isOnboarded', true.toString())
+      this.setIsOnboarded()
+    },
+    setIsOnboarded () {
+      const localStorageIsOnboarded = window.localStorage.getItem('isOnboarded')
+      this.isOnboarded = localStorageIsOnboarded === null ? false : localStorageIsOnboarded === 'true'
+    }
+  }
 }
 </script>
 
 <style lang="sass">
-#app
+.container
   margin: 2rem
   width: calc(100% - ( 2 * 2rem))
   height: calc(100vh - (2 * 2rem))
@@ -29,4 +68,40 @@ export default {
   > main
     flex: 1 1 auto
   > .footer
+.modal
+  z-index: 500
+  position: absolute
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+  background: rgba($color-surface, 0.9)
+  display: flex
+  flex-direction: column
+  flex-wrap: nowrap
+  justify-content: flex-start
+  align-items: center
+  .close
+    position: absolute
+    top: 1rem
+    right: 1rem
+    padding: 1rem 1rem
+    background: $color-primary
+    color: $color-light
+    border: none
+    font-size: 1rem
+    letter-spacing: 2px
+    &:hover
+      cursor: pointer
+      background: $color-light
+      color: $color-primary
+  .content
+    width: 64rem
+    margin: 4rem
+    h2
+      font-size: 2.5rem
+    p
+      font-size: 1.2rem
+      line-height: 1.7
+      margin: 2rem 0 0 0
 </style>
