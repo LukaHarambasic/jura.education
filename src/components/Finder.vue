@@ -116,6 +116,7 @@ ul
         content: '>'
         font-weight: bold
         margin: 0 0 0 .5rem
+        transition: $animation
       &:hover
         background: rgba($color-accent, 0.05)
         cursor: pointer

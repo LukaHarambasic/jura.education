@@ -1,12 +1,28 @@
 <template>
   <footer>
     <ul class="list">
-      <li>Über uns</li>
-      <li>GitHub</li>
-      <li>Impressum</li>
-      <li>Datenschutz</li>
+      <li>
+        <router-link to="/">
+          Start
+        </router-link>
+      </li>
+      <li><a href="https://github.com/LukaHarambasic/jura.education">GitHub</a></li>
+      <li>
+        <router-link to="/impressum">
+          Impressum
+        </router-link>
+      </li>
+      <li>
+        <router-link to="/datenschutz">
+          Datenschutz
+        </router-link>
+      </li>
     </ul>
-    <base-logo class="logo" />
+    <div class="logo">
+      <router-link to="/">
+        <base-logo />
+      </router-link>
+    </div>
   </footer>
 </template>
 
@@ -45,8 +61,15 @@ footer
     margin: 0 1rem 0 0
     &:last-of-type
       margin: 0
+    a
+      color: $color-light
+      &:hover
+        text-decoration: none
 .logo
   width: 6rem
   height: 6rem
   margin: -5rem 0 0 0
+  transition: $animation
+  &:hover
+    transform: scale(1.1)
 </style>

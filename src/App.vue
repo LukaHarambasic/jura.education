@@ -91,6 +91,7 @@ export default {
     border: none
     font-size: 1rem
     letter-spacing: 2px
+    transition: $animation
     &:hover
       cursor: pointer
       background: $color-light
@@ -107,6 +108,7 @@ export default {
     a
       color: $color-primary
       font-weight: bold
+      transition: $animation
       &:hover
         text-decoration: none
 </style>
