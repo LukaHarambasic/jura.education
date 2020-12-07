@@ -51,7 +51,8 @@ export default {
   created () {
     this.columns = setup(this.files)
     // keyboard event listener
-    document.addEventListener('keydown', (event) => {
+    // TODO isn't working as expected
+    /*    document.addEventListener('keydown', (event) => {
       // TODO fix condition when setup is triggered
       this.columns = setupArrows(event, this.columns)
       switch (event.key) {
@@ -68,7 +69,7 @@ export default {
           this.columns = downArrowPressed(this.columns)
           break
       }
-    })
+    }) */
     // TODO read query params
   },
   methods: {

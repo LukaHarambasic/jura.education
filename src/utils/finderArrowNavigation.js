@@ -17,7 +17,16 @@ export const setupArrows = (event, columns) => {
 
 export const rightArrowPressed = (columns) => {
   console.debug('rightArrowPressed')
-  return columns
+  const _columns = columns
+  if (!_isInitial(_columns)) {
+    const { columnIndex, itemIndex } = _findIsSelected(_columns)
+    const currentItem = _columns[columnIndex][itemIndex]
+    // should be in function and should be functional
+    currentItem.state.isSelected = false
+    const nextItem = _columns[columnIndex + 1][itemIndex]
+    nextItem.state.isSelected = true
+  }
+  return _columns
 }
 
 export const leftArrowPressed = (columns) => {
@@ -33,7 +42,6 @@ export const upArrowPressed = (columns) => {
 export const downArrowPressed = (columns) => {
   console.debug('downArrowPressed')
   let _columns = columns
-  console.log('_isInitial(_columns)', _isInitial(_columns))
   if (!_isInitial(_columns)) {
     console.log('isNotInitial')
     const { columnIndex, itemIndex } = _findIsSelected(_columns)
