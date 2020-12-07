@@ -31,8 +31,7 @@ import { setup, addColumn, setWasSelected, cropColumns } from '@/utils/logic'
 import {
   downArrowPressed,
   leftArrowPressed,
-  rightArrowPressed,
-  setupArrows,
+  rightArrowPressed, setupArrows,
   upArrowPressed
 } from '@/utils/finderArrowNavigation'
 
@@ -53,19 +52,20 @@ export default {
     this.columns = setup(this.files)
     // keyboard event listener
     document.addEventListener('keydown', (event) => {
-      setupArrows(event, this.columns)
+      // TODO fix condition when setup is triggered
+      this.columns = setupArrows(event, this.columns)
       switch (event.key) {
         case 'ArrowRight':
-          rightArrowPressed()
+          rightArrowPressed(this.columns)
           break
         case 'ArrowLeft':
-          leftArrowPressed()
+          leftArrowPressed(this.columns)
           break
         case 'ArrowUp':
-          upArrowPressed()
+          this.columns = upArrowPressed(this.columns)
           break
         case 'ArrowDown':
-          downArrowPressed()
+          this.columns = downArrowPressed(this.columns)
           break
       }
     })
@@ -125,7 +125,8 @@ ul
       &:hover
         background: rgba($color-accent, 0.05)
         cursor: pointer
-    &.isSelected.wasSelected
+    &.isSelected,
+    &.isSelected.wasSelected // .isSelected overrules .wasSelected
       background: deeppink
     &.wasSelected
       font-weight: bold

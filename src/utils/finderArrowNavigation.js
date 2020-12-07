@@ -1,37 +1,93 @@
-import { defaultState } from '@/utils/logic'
+import { setStates, setIsSelected, addColumn, cropColumns } from '@/utils/logic'
 
 export const setupArrows = (event, columns) => {
   console.debug('setupArrows')
   const POSSIBLE_KEYS = ['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown']
-  if (POSSIBLE_KEYS.includes(event.key) < 1) return
-  // only first column exists
-  if (columns.length === 1) {
-    const item = columns[0][0]
-    setIsSelected(item)
+  let _columns = columns
+  if (POSSIBLE_KEYS.includes(event.key) > 0) {
+    const { columnIndex, itemIndex } = _findIsSelected(_columns)
+    const currentItem = _columns[columnIndex][itemIndex]
+    if (_isInitial(_columns)) {
+      _columns = setIsSelected(_columns, 0, 0)
+      _columns = addColumn(_columns, currentItem.children)
+    }
+  }
+  return _columns
+}
+
+export const rightArrowPressed = (columns) => {
+  console.debug('rightArrowPressed')
+  return columns
+}
+
+export const leftArrowPressed = (columns) => {
+  console.debug('leftArrowPressed')
+  return columns
+}
+
+export const upArrowPressed = (columns) => {
+  console.debug('upArrowPressed')
+  return columns
+}
+
+export const downArrowPressed = (columns) => {
+  console.debug('downArrowPressed')
+  let _columns = columns
+  console.log('_isInitial(_columns)', _isInitial(_columns))
+  if (!_isInitial(_columns)) {
+    console.log('isNotInitial')
+    const { columnIndex, itemIndex } = _findIsSelected(_columns)
+    let nextItemIndex = itemIndex + 1
+    const maximumItemIndex = _columns[columnIndex].length - 1
+    const isNextItemAvailable = nextItemIndex > maximumItemIndex
+    console.log('columnIndex', columnIndex)
+    console.log('itemIndex', itemIndex)
+    console.log('nextItemIndex', nextItemIndex)
+    console.log('isNextItemAvailable', isNextItemAvailable)
+    if (isNextItemAvailable) {
+      nextItemIndex = 0
+    }
+    const nextItem = _columns[columnIndex][nextItemIndex]
+    _columns = setIsSelected(_columns, columnIndex, nextItemIndex)
+    _columns = cropColumns(_columns, _columns.length - 1)
+    if (nextItem.state.hasChildren) {
+      console.log('hasChildren')
+      _columns = addColumn(_columns, nextItem.children)
+    }
+  }
+  return _columns
+}
+
+const _findIsSelected = (columns) => {
+  const columnIndex = columns.findIndex(_column => {
+    return _column.some(_item => _isSelected(_item))
+  })
+  // if no column is found set the first item as default
+  if (columnIndex < 0) {
+    return {
+      columnIndex: 0,
+      itemIndex: 0
+    }
+  }
+  const itemIndex = columns[columnIndex].findIndex(_item => _isSelected(_item))
+  return {
+    columnIndex: columnIndex,
+    itemIndex: itemIndex
   }
 }
 
-export const rightArrowPressed = () => {
-  console.debug('rightArrowPressed')
-}
+const _isSelected = (item) => item.state ? item.state.isSelected === true : false
 
-export const leftArrowPressed = () => {
-  console.debug('leftArrowPressed')
-}
-
-export const upArrowPressed = () => {
-  console.debug('upArrowPressed')
-}
-
-export const downArrowPressed = () => {
-  console.debug('downArrowPressed')
+const _isInitial = (columns) => {
+  const { columnIndex, itemIndex } = _findIsSelected(columns)
+  const currentItem = columns[columnIndex][itemIndex]
+  return columnIndex === 0 && itemIndex === 0 && !currentItem.state.isSelected
 }
 
 /**
  * Helper functions
  */
 
-// Index based helpers
 // eslint-disable-next-line no-unused-vars
 const findItemInColumn = () => {
   console.debug('findItemInColumn')
@@ -55,18 +111,6 @@ const findItem = () => {
 }
 
 // eslint-disable-next-line no-unused-vars
-const setWasSelected = (item) => {
-  console.debug('setWasSelected')
-  item.state.wasSelected = true
-}
-
-const setIsSelected = (item) => {
-  console.debug('setIsSelected')
-  // TODO: this is a call by reference right?
-  item.state.isSelected = true
-}
-
-// eslint-disable-next-line no-unused-vars
 const removeAllStates = (columns) => {
   console.debug('removeAllStates')
   // TODO: loop over all columns and items and remove their states
@@ -74,7 +118,7 @@ const removeAllStates = (columns) => {
     return column.map(item => {
       return {
         ...item,
-        state: defaultState(item)
+        state: setStates(item)
       }
     })
   })

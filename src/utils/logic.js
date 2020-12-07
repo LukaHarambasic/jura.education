@@ -19,7 +19,7 @@ export const setup = (files) => {
     return _items.map(_item => {
       return {
         ..._item,
-        state: defaultState(_item)
+        state: setStates(_item)
       }
     })
   })
@@ -38,7 +38,7 @@ export const addColumn = (columns, children) => {
     children.map(_item => {
       return {
         ..._item,
-        state: defaultState(_item)
+        state: setStates(_item)
       }
     })
   ]
@@ -52,7 +52,7 @@ export const addColumn = (columns, children) => {
  * @param columns
  * @param columnIndex
  * @param itemIndex
- * @returns {*}
+ * @returns []
  */
 export const setWasSelected = (columns, columnIndex, itemIndex) => {
   console.debug('setWasSelected')
@@ -61,7 +61,33 @@ export const setWasSelected = (columns, columnIndex, itemIndex) => {
       return _column.map((_item, _itemIndex) => {
         return {
           ..._item,
-          state: defaultState(_item, false, itemIndex === _itemIndex)
+          state: setStates(_item, false, itemIndex === _itemIndex)
+        }
+      })
+    } else {
+      return _column
+    }
+  })
+}
+
+/**
+ * Set wasSelect for the selected item and reset it for all others. This is relevant if a user navigates back.
+ * Otherwise multiple items would have wasSelected = true
+ * was selected is true if the itemIndex from the clicked item matches the one in the column, all others are false.
+ *
+ * @param columns
+ * @param columnIndex
+ * @param itemIndex
+ * @returns []
+ */
+export const setIsSelected = (columns, columnIndex, itemIndex) => {
+  console.debug('setIsSelected')
+  return columns.map((_column, _columnIndex) => {
+    if (columnIndex === _columnIndex) {
+      return _column.map((_item, _itemIndex) => {
+        return {
+          ..._item,
+          state: setStates(_item, itemIndex === _itemIndex, false)
         }
       })
     } else {
@@ -74,35 +100,23 @@ export const setWasSelected = (columns, columnIndex, itemIndex) => {
  * Returns cropped columns
  * @param columns
  * @param length
- * @returns {*}
+ * @returns []
  */
 export const cropColumns = (columns, length) => {
-  return columns.slice(0, length)
+  return length === 0 ? columns : columns.slice(0, length)
 }
 
 /**
- * Sets the default states for an item, but also can handle inputs, e.g. setWasSelected()
+ * Sets the states for an item (preconfigered), but also can handle inputs, e.g. setWasSelected()
  * @param item
  * @param isSelected
  * @param wasSelected
  * @returns {{wasSelected: boolean, hasChildren: boolean, isSelected: boolean}}
  */
-export const defaultState = (item, isSelected = false, wasSelected = false) => {
+export const setStates = (item, isSelected = false, wasSelected = false) => {
   return {
     isSelected: isSelected,
     wasSelected: wasSelected,
     hasChildren: item.children ? item.children.length > 0 : false
   }
 }
-
-// maybe relevant for arrow navigation
-// export const setIsSelected = (columns, columnIndex, itemIndex) => {
-//   const columnsCopy = columns
-//   columnsCopy[columnIndex] = columns[columnIndex].map((item, index) => {
-//     return {
-//       ...item,
-//       state: defaultState(item, itemIndex === index)
-//     }
-//   })
-//   return columnsCopy
-// }
