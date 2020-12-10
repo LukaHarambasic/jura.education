@@ -11,6 +11,8 @@ const constants = {
   FILE: 'file'
 }
 
+let INCREMENTED_ID = 1
+
 function safeReadDirSync (path) {
   let dirData = {}
   try {
@@ -54,7 +56,11 @@ function isRegExp (regExp) {
 function directoryTree (path, options, onEachFile, onEachDirectory) {
   const name = PATH.basename(path)
   path = options && options.normalizePath ? normalizePath(path) : path
-  const item = { path, name }
+  const item = {
+    id: INCREMENTED_ID++,
+    path,
+    name
+  }
   let stats
 
   try { stats = FS.statSync(path) } catch (e) { return null }
