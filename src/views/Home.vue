@@ -1,8 +1,8 @@
 <template>
   <div class="home">
-    <finder
+    <columns
       v-if="files"
-      :files="files"
+      :tree="files"
     />
     <p v-else>
       Lädt...
@@ -11,14 +11,14 @@
 </template>
 
 <script>
-import Finder from '@/components/Finder'
+import Columns from '@/components/Columns'
 import mock from '@/assets/mock.json'
 
 const CATEGORIES = ['strafrecht', 'oeffentlichesrecht', 'zivilrecht']
 
 export default {
   name: 'Home',
-  components: { Finder },
+  components: { Columns },
   data () {
     return {
       files: null
