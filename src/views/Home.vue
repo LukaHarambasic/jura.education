@@ -54,7 +54,7 @@ export default {
       // is type string if request is empty or still initial
       if (this.files === '' || this.files === null || this.files === undefined) {
         console.debug('Data from API is empty or initial, using mock data.')
-        this.files = mock.children
+        this.files = mock
       }
     }
   }
