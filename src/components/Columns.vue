@@ -9,6 +9,7 @@
       v-for="(column, columnIndex) in columns"
     >
       <li
+        class="item"
         :key="itemIndex"
         v-for="(item, itemIndex) in column"
         @click="selectItem(item, item.id, columnIndex)"
@@ -22,28 +23,7 @@
 </template>
 
 <script>
-const getItemById = (tree, id) => {
-  // console.log('getItemById with Id', id)
-  return tree.find(_item => {
-    console.log('------------------------')
-    console.log(`itemid: ${_item.id}, searchid: ${id}`)
-    if (_item.id === id) {
-      console.log('true')
-      return true
-    } else if (hasChildren) {
-      console.log('hasChildren')
-      return getItemById(_item.children, id)
-    }
-    console.log('false')
-    return false
-  })
-}
-
-const hasChildren = (item) => item.children ? item.children.length > 0 : false
-
-const isSelected = (selectedIds, itemId) => selectedIds[selectedIds.length - 1] === itemId
-
-const isInPath = (selectedIds, itemId) => selectedIds.includes(itemId)
+import { getItemById, hasChildren, isInPath, isSelected } from '@/assets/js/util'
 
 export default {
   name: 'Columns',
@@ -63,18 +43,18 @@ export default {
   },
   computed: {
     columns () {
-      console.log('selectedIds', this.selectedIds.toString())
+      // console.log('selectedIds', this.selectedIds.toString())
       return this.selectedIds.map(_id => {
         const item = getItemById([this.tree], _id)
-        console.log('children of found item:')
-        console.log(item.children)
+        // console.log('children of found item:')
+        // console.log(item.children)
         return item.children
       })
     }
   },
   methods: {
     selectItem (item, itemId, columnIndex) {
-      console.log(itemId)
+      // console.log(itemId)
       if (!this.hasChildren(item)) return
       // TODO: reset to prev
       // TODO out of bounce to left side
@@ -82,9 +62,9 @@ export default {
       // use this.initializeColumns()
       const selectedIdsLength = this.selectedIds.length
       const isInitial = selectedIdsLength <= 1
-      console.log('isInitial', isInitial)
-      console.log('columnIndex', columnIndex)
-      console.log('selectedIdsLength', selectedIdsLength)
+      // console.log('isInitial', isInitial)
+      // console.log('columnIndex', columnIndex)
+      // console.log('selectedIdsLength', selectedIdsLength)
       if (isInitial) {
         this.selectedIds.length = 0
         this.initializeColumns()
