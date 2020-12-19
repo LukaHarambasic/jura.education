@@ -1,8 +1,8 @@
-import { getItemById, hasChildren, isInPath, isSelected } from '@/assets/js/util'
-import mock from '@/assets/mock.json'
+import { hasChildren, isInPath, isSelected } from '@/assets/js/util'
+// import mock from '@/assets/mock.json'
 
 describe('util.js', () => {
-  it('getItemById returns correct item', () => {
+/*  it('getItemById returns correct item', () => {
     const item0 = getItemById([mock], 1) // first id
     const item1 = getItemById([mock], 2)
     const item2 = getItemById([mock], 11)
@@ -23,7 +23,7 @@ describe('util.js', () => {
     expect(item5.name).toMatch('E. Ansprüche aus ungerechtfertigter Bereicherung')
     expect(item5.name).not.toMatch('jonas')
     expect(item5.name).not.toMatch('')
-  })
+  }) */
   // TODO: rename
   it('hasChildren', () => {
     expect(hasChildren({})).toBe(false)
