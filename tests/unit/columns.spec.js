@@ -1,6 +1,5 @@
 import { shallowMount } from '@vue/test-utils'
 import Columns from '@/components/Columns'
-import { getItemById } from '@/assets/js/util'
 import mock from '@/assets/mock.json'
 
 describe('Columns.vue', () => {

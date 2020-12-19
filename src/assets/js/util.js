@@ -1,7 +1,4 @@
-let index = 0
-
 export const getItemById = (tree, id) => {
-  console.log(index++)
   // console.log('getItemById with Id', id)
   return tree.find(_item => {
     // console.log('------------------------')
