@@ -33,13 +33,13 @@ describe('Columns.vue', () => {
     expect(component.vm.selectedIds).not.toStrictEqual([2, 3])
   })
   // IMPORTANT: this test is failing and is implemented correctly
-  /*  it('click at first item in first column and test if items contains "§ 1 Abwehr von Maßnahmen"', async () => {
+  it('click at first item in first column and test if items contains "§ 1 Abwehr von Maßnahmen"', async () => {
     const items = component.findAll('.item')
     await items.at(0).trigger('click')
     const items2 = component.findAll('.item')
     const foundItem = items2.wrappers.findIndex(_item => _item.text() === '§ 1 Abwehr von Maßnahmen')
     expect(foundItem).toBeGreaterThanOrEqual(0) // if it isn't found the index is -1
-  }) */
+  })
   it('computed columns reflects length of selected ids', () => {
     component.setData({ selectedIds: [1, 2] })
     expect(component.vm.columns.length).toBe(2)
@@ -47,7 +47,7 @@ describe('Columns.vue', () => {
     expect(component.vm.columns.length).not.toBe(1)
   })
   // IMPORTANT: this test is failing and is implemented correctly
-/*  it('computed columns contain the correct items', () => {
+  it('computed columns contain the correct items', () => {
     const FIRST_COLUM = ['Öffentliches Recht', 'Zivilrecht', 'Strafrecht']
     const SECOND_COLUM = ['§ 1 Abwehr von Maßnahmen', '§ 2 Erlass von Maßnahmen', '§ 3 Feststellung der Rechtswidrigkeit']
     component.setData({ selectedIds: [1, 2] })
@@ -56,6 +56,6 @@ describe('Columns.vue', () => {
     const isSecondColumnCorrect = columns[1].every(_item => SECOND_COLUM.includes(_item.name))
     expect(isFirstColumnCorrect).toBe(true)
     expect(isSecondColumnCorrect).toBe(true)
-  }) */
+  })
   // TODO: keyboard navigation with edge cases
 })
