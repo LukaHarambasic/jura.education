@@ -29,7 +29,9 @@ export default {
   name: 'Columns',
   data () {
     return {
-      selectedIds: [] // last selected ID is active
+      // last selected ID is active
+      // every ID which is selected is in the path
+      selectedIds: []
     }
   },
   props: {
@@ -51,17 +53,15 @@ export default {
   },
   methods: {
     selectItem (item, itemId, columnIndex) {
-      // console.log(itemId)
       if (!this.hasChildren(item)) return
-      // TODO out of bounce to left side
-      // if it's set to null initialise column again
-      // use this.initializeColumns()
       const selectedIdsLength = this.selectedIds.length
       const isInitial = selectedIdsLength <= 1
       if (isInitial) {
         this.selectedIds.length = 0
         this.initializeColumns()
       } else {
+        // crop items, e.g. 5 columns exist and user clicks on item in second column
+        // -> only the first two columsn are still there and a new one will be added
         this.selectedIds.length = columnIndex + 1
       }
       this.selectedIds.push(itemId)
@@ -71,7 +71,7 @@ export default {
     scrollToRight () {
       const columnsNode = this.$refs.columns
       this.$nextTick(() => {
-        const columnWidth = (columnsNode.clientWidth / 3)
+        const columnWidth = (columnsNode.clientWidth / 3) // based on 3 columns which are visible
         columnsNode.scrollLeft = columnsNode.scrollWidth + columnWidth
       })
     },
