@@ -53,19 +53,16 @@ export default {
     selectItem (item, itemId, columnIndex) {
       // console.log(itemId)
       if (!this.hasChildren(item)) return
-      // TODO: reset to prev
       // TODO out of bounce to left side
       // if it's set to null initialise column again
       // use this.initializeColumns()
       const selectedIdsLength = this.selectedIds.length
-      // TODO this isn't correct
       const isInitial = selectedIdsLength <= 1
       if (isInitial) {
         this.selectedIds.length = 0
         this.initializeColumns()
       } else {
-        // TODO the condition is incorrect or the logic here is incorrect or both
-        this.selectedIds.length = columnIndex - 1
+        this.selectedIds.length = columnIndex + 1
       }
       this.selectedIds.push(itemId)
     },
