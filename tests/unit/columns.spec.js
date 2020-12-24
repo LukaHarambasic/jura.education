@@ -32,7 +32,6 @@ describe('Columns.vue', () => {
     expect(component.vm.selectedIds).not.toStrictEqual([])
     expect(component.vm.selectedIds).not.toStrictEqual([2, 3])
   })
-  // IMPORTANT: this test is failing and is implemented correctly
   it('click at first item in first column and test if items contains "§ 1 Abwehr von Maßnahmen"', async () => {
     const items = component.findAll('.item')
     await items.at(0).trigger('click')
@@ -46,7 +45,6 @@ describe('Columns.vue', () => {
     expect(component.vm.columns.length).not.toBe(3)
     expect(component.vm.columns.length).not.toBe(1)
   })
-  // IMPORTANT: this test is failing and is implemented correctly
   it('computed columns contain the correct items', () => {
     const FIRST_COLUM = ['Öffentliches Recht', 'Zivilrecht', 'Strafrecht']
     const SECOND_COLUM = ['§ 1 Abwehr von Maßnahmen', '§ 2 Erlass von Maßnahmen', '§ 3 Feststellung der Rechtswidrigkeit']
@@ -57,5 +55,6 @@ describe('Columns.vue', () => {
     expect(isFirstColumnCorrect).toBe(true)
     expect(isSecondColumnCorrect).toBe(true)
   })
+  // TODO: test reset in columns
   // TODO: keyboard navigation with edge cases
 })
