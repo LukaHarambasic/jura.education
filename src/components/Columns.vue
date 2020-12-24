@@ -93,7 +93,7 @@ export default {
   align-content: stretch
   align-items: stretch
   min-width: 25rem
-  height: 100%
+  height: calc(100% + 1px) // fixes cropped bottom border
   width: 100%
   overflow-x: scroll
   overflow-y: auto
@@ -107,18 +107,23 @@ export default {
     padding: 1rem 2rem
     border-bottom: 1px solid rgba($color-accent, 0.5)
     display: block
+    &[data-is-selected]
+      text-decoration: underline
+      color: $color-light
+      background: $color-primary !important
+      &[data-has-children]
+        &:hover
+          background: rgba($color-primary, 0.95) !important
+    &[data-is-in-path]
+      background: rgba($color-accent, 0.1)
     &[data-has-children]
       &:after
         content: '>'
         font-weight: bold
         margin: 0 0 0 .5rem
         transition: $animation
+        text-decoration: none
       &:hover
         background: rgba($color-accent, 0.05)
         cursor: pointer
-    &[data-is-in-path]
-      font-weight: bold
-      background: rgba($color-accent, 0.1)
-    &[data-is-selected]
-      background: deeppink
 </style>
