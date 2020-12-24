@@ -43,11 +43,8 @@ export default {
   },
   computed: {
     columns () {
-      // console.log('selectedIds', this.selectedIds.toString())
       return this.selectedIds.map(_id => {
-        const item = getItemById([this.tree], _id)
-        // console.log('children of found item:')
-        // console.log(item.children)
+        const item = getItemById(this.tree, _id)
         return item.children
       })
     }
@@ -61,14 +58,13 @@ export default {
       // if it's set to null initialise column again
       // use this.initializeColumns()
       const selectedIdsLength = this.selectedIds.length
+      // TODO this isn't correct
       const isInitial = selectedIdsLength <= 1
-      // console.log('isInitial', isInitial)
-      // console.log('columnIndex', columnIndex)
-      // console.log('selectedIdsLength', selectedIdsLength)
       if (isInitial) {
         this.selectedIds.length = 0
         this.initializeColumns()
       } else {
+        // TODO the condition is incorrect or the logic here is incorrect or both
         this.selectedIds.length = columnIndex - 1
       }
       this.selectedIds.push(itemId)
