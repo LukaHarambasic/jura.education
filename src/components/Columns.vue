@@ -65,6 +65,7 @@ export default {
         this.selectedIds.length = columnIndex + 1
       }
       this.selectedIds.push(itemId)
+      this.scrollToRight()
     },
     // HELPERS
     scrollToRight () {
@@ -115,7 +116,7 @@ export default {
         &:hover
           background: rgba($color-primary, 0.95) !important
     &[data-is-in-path]
-      background: rgba($color-accent, 0.1)
+      background: rgba($color-surface, 0.5)
     &[data-has-children]
       &:after
         content: '>'
@@ -124,6 +125,7 @@ export default {
         transition: $animation
         text-decoration: none
       &:hover
-        background: rgba($color-accent, 0.05)
+        background: rgba($color-surface, 0.3)
         cursor: pointer
+        text-decoration: underline
 </style>
