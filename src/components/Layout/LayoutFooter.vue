@@ -50,25 +50,38 @@ footer
   color: $color-light
   border: 2px solid $color-primary
   padding: 1rem
+  @media screen and (max-width: $breakpoint-mobile)
+    position: relative
+    bottom: 0
+    left: 0
+    right: 0
+    margin: 1rem 0 0 0
+    padding: .5rem 1rem
 .list
   display: flex
   flex-direction: row
   list-style: none
   padding: 0
   width: 100%
+  font-size: 1rem
   li
     margin: 0 1rem 0 0
     &:last-of-type
       margin: 0
     a
       color: $color-light
+      text-decoration: none
       &:hover
-        text-decoration: none
+        text-decoration: underline
 .logo
   width: 6rem
   height: 6rem
   margin: -5rem 0 0 0
   transition: $animation
+  @media screen and (max-width: $breakpoint-mobile)
+    width: 4rem
+    height: 4rem
+    margin: -3rem 0 0 0
   &:hover
     transform: scale(1.1)
 </style>

@@ -87,6 +87,10 @@ export default {
   align-items: stretch
   @media (hover: none) and (orientation: portrait)
     overflow: hidden
+  @media screen and (max-width: $breakpoint-mobile)
+    margin: 1rem
+    width: calc(100% - ( 2 * 1rem))
+    min-height: 100vh
   > main
     flex: 1 1 auto
 .button

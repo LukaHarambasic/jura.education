@@ -140,7 +140,6 @@ export default {
   justify-content: flex-start
   align-content: stretch
   align-items: stretch
-  min-width: 25rem
   height: 100%
   width: 100%
   overflow-x: scroll
@@ -149,8 +148,11 @@ export default {
   background: rgba($color-accent, 0.05)
 .column
   border-right: 2px solid $color-accent
-  background: #fff // TODO add variable
+  background: $color-light
   min-width: calc((100% / 3) - (2 * 2px) - 1rem)
+  @media screen and (max-width: $breakpoint-mobile)
+    min-width: 40%
+    width: auto
   li
     padding: 1rem 2rem
     border-bottom: 1px solid rgba($color-accent, 0.5)
