@@ -17,3 +17,7 @@ export const hasChildren = (item) => item.children ? item.children.length > 0 : 
 export const isSelected = (selectedIds, itemId) => selectedIds[selectedIds.length - 1] === itemId
 
 export const isInPath = (selectedIds, itemId) => selectedIds.includes(itemId)
+
+export const isInitial = (selectedIds) => selectedIds.length <= 1
+
+export const isAllowedKey = (key) => ['ArrowDown', 'ArrowUp', 'ArrowRight', 'ArrowLeft'].includes(key)
