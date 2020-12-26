@@ -42,12 +42,13 @@ export default {
   },
   created () {
     this.initializeColumns()
+    document.onkeydown = this.onkeydown
   },
   computed: {
     columns () {
       return this.selectedIds.map(_id => {
         const item = getItemById(this.tree, _id)
-        return item.children
+        return hasChildren(item) ? item.children : null
       })
     }
   },
@@ -57,15 +58,63 @@ export default {
       const selectedIdsLength = this.selectedIds.length
       const isInitial = selectedIdsLength <= 1
       if (isInitial) {
+        // TODO: https://vuejs.org/v2/guide/reactivity.html#For-Arrays
         this.selectedIds.length = 0
         this.initializeColumns()
       } else {
         // crop items, e.g. 5 columns exist and user clicks on item in second column
-        // -> only the first two columsn are still there and a new one will be added
+        // -> only the first two columns are still there and a new one will be added
+        // TODO: https://vuejs.org/v2/guide/reactivity.html#For-Arrays
         this.selectedIds.length = columnIndex + 1
       }
       this.selectedIds.push(itemId)
       this.scrollToRight()
+    },
+    onkeydown: function (event) {
+      const SELECTABLE_KEYS = ['ArrowDown', 'ArrowUp', 'ArrowRight', 'ArrowLeft']
+      const key = event.key
+      // TODO extract to own function
+      const selectedIdsLength = this.selectedIds.length
+      const isInitial = selectedIdsLength <= 1
+      if (isInitial && SELECTABLE_KEYS.includes(key)) {
+        const firstChildId = this.tree.children[0].id
+        this.selectedIds.push(firstChildId)
+      }
+      if (!isInitial && SELECTABLE_KEYS.includes(key)) {
+        const columnsLength = this.columns.length
+        // get previous column, as the second last column contains the selected item
+        const parentColumn = this.columns[columnsLength - 2]
+        // TODO: rename - maybe second last column?
+        const selectedItemIndex = parentColumn.findIndex(_item => isSelected(this.selectedIds, _item.id))
+        // TODO rename
+        const currentSelectedItemId = parentColumn[selectedItemIndex].id
+        // TODO rename
+        const currentSelectedIdsIndex = this.selectedIds.findIndex(_id => currentSelectedItemId === _id)
+        // TODO out of bounce in both directions
+        const nextSelectedItemId = selectedItemIndex + 1 < parentColumn.length ? parentColumn[selectedItemIndex + 1].id : parentColumn[0].id
+        // TODO make nice
+        const previousSelectedItemId = selectedItemIndex > 0 ? parentColumn[selectedItemIndex - 1].id : parentColumn[parentColumn.length - 1].id
+        switch (key) {
+          case 'ArrowDown':
+            console.log('ArrowDown')
+            // The following is equal to: this.selectedIds[selectedItemIndex + 1] = nextSelectedItemId
+            // And is needed to fix this problem: https://vuejs.org/v2/guide/reactivity.html#For-Arrays
+            this.$set(this.selectedIds, currentSelectedIdsIndex, nextSelectedItemId)
+            break
+          case 'ArrowUp':
+            console.log('ArrowUp')
+            // The following is equal to: this.selectedIds[selectedItemIndex + 1] = nextSelectedItemId
+            // And is needed to fix this problem: https://vuejs.org/v2/guide/reactivity.html#For-Arrays
+            this.$set(this.selectedIds, currentSelectedIdsIndex, previousSelectedItemId)
+            break
+          case 'ArrowRight':
+            console.log('ArrowRight')
+            break
+          case 'ArrowLeft':
+            console.log('ArrowLeft')
+            break
+        }
+      }
     },
     // HELPERS
     scrollToRight () {
@@ -76,7 +125,8 @@ export default {
       })
     },
     initializeColumns () {
-      return this.selectedIds.push(1)
+      const firstId = this.tree.id
+      this.selectedIds.push(firstId)
     },
     hasChildren,
     isSelected,

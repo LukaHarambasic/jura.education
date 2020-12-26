@@ -55,6 +55,47 @@ describe('Columns.vue', () => {
     expect(isFirstColumnCorrect).toBe(true)
     expect(isSecondColumnCorrect).toBe(true)
   })
+  it('initial keyboard press: ArrowDown', () => {
+    const selectedIds = component.vm.selectedIds
+    component.vm.onkeydown({ key: 'ArrowDown' })
+    expect(selectedIds).toStrictEqual([1, 2])
+  })
+  it('initial keyboard press: ArrowUp', () => {
+    const selectedIds = component.vm.selectedIds
+    component.vm.onkeydown({ key: 'ArrowUp' })
+    expect(selectedIds).toStrictEqual([1, 2])
+  })
+  it('initial keyboard press: ArrowLeft', () => {
+    const selectedIds = component.vm.selectedIds
+    component.vm.onkeydown({ key: 'ArrowLeft' })
+    expect(selectedIds).toStrictEqual([1, 2])
+  })
+  it('initial keyboard press: ArrowRight', () => {
+    const selectedIds = component.vm.selectedIds
+    component.vm.onkeydown({ key: 'ArrowRight' })
+    expect(selectedIds).toStrictEqual([1, 2])
+  })
+  it('initial keyboard press: d', () => {
+    const selectedIds = component.vm.selectedIds
+    component.vm.onkeydown({ key: 'd' })
+    expect(selectedIds).not.toStrictEqual([1, 2])
+  })
+  it('second keyboard press: ArrowDown', () => {
+    const selectedIds = component.vm.selectedIds
+    component.vm.onkeydown({ key: 'ArrowDown' })
+    component.vm.onkeydown({ key: 'ArrowDown' })
+    expect(selectedIds).toStrictEqual([1, 904])
+    // TODO: also test what is visible on ui
+  })
+  it('third keyboard press: ArrowDown', () => {
+    const selectedIds = component.vm.selectedIds
+    component.vm.onkeydown({ key: 'ArrowDown' })
+    component.vm.onkeydown({ key: 'ArrowDown' })
+    component.vm.onkeydown({ key: 'ArrowDown' })
+    expect(selectedIds).toStrictEqual([1, 905])
+    // TODO: also test what is visible on ui
+  })
+  // TODO: test columns for change: https://vuejs.org/v2/guide/reactivity.html#For-Arrays
   // TODO: test reset in columns
   // TODO: keyboard navigation with edge cases
 })
