@@ -149,7 +149,7 @@ export default {
   background: rgba($color-accent, 0.05)
 .column
   border-right: 2px solid $color-accent
-  background: #fff
+  background: #fff // TODO add variable
   min-width: calc((100% / 3) - (2 * 2px) - 1rem)
   li
     padding: 1rem 2rem

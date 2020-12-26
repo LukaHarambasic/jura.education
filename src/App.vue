@@ -2,10 +2,12 @@
   <div id="app">
     <div class="modal orientation">
       <div class="content">
+        <h2>Bitte drehen! 🔄</h2>
         <p>
           Was bildest du dir ein dieses Meisterwerk im Portrait Modus auf nem Handy zu nutzen? Ne, merkste selber... macht keinen Sinn.
-          Also dreh dein Handy und dann passt des auch wieder
+          Also dreh dein Handy und dann passt des auch wieder!
         </p>
+        <p>Dankeschön ❤️</p>
       </div>
     </div>
     <div
@@ -83,16 +85,13 @@ export default {
   justify-content: flex-start
   align-content: stretch
   align-items: stretch
-  @media (hover: none) and (orientation: portrait)
-    overflow: hidden
   > main
     flex: 1 1 auto
-  > .footer
 .button
   position: absolute
   top: .5rem
   right: .5rem
-  padding: 1rem 1rem
+  padding: .5rem
   background: $color-primary
   color: $color-light
   font-size: 0.8rem
@@ -110,6 +109,7 @@ export default {
   left: 0
   right: 0
   bottom: 0
+  overflow-y: scroll
   background: rgba($color-surface, 0.9)
   display: flex
   flex-direction: column
@@ -119,6 +119,9 @@ export default {
   .content
     width: 64rem
     margin: 4rem
+    @media (hover: none)
+      width: calc(100% - (2 * 4rem))
+      margin: 4rem
     h2
       font-size: 2.5rem
     p
@@ -134,6 +137,7 @@ export default {
 .orientation
   display: none
   @media (hover: none) and (orientation: portrait)
+    z-index: 1000
     display: block
     background: rgba($color-surface, 1)
 </style>
