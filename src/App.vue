@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <layout-cookie />
     <div class="modal orientation">
       <div class="content">
         <h2>🔄 Bitte drehen!</h2>
@@ -45,9 +46,10 @@
 
 <script>
 import LayoutFooter from '@/components/Layout/LayoutFooter'
+import LayoutCookie from '@/components/Layout/LayoutCookies'
 
 export default {
-  components: { LayoutFooter },
+  components: { LayoutCookie, LayoutFooter },
   data () {
     return {
       isOnboarded: false
@@ -74,7 +76,7 @@ export default {
 }
 </script>
 
-<style lang="sass">
+<style lang="sass" scoped>
 .container
   margin: 2rem
   width: calc(100% - ( 2 * 2rem))
