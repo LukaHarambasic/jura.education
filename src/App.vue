@@ -89,6 +89,7 @@ export default {
   align-items: stretch
   @media (hover: none) and (orientation: portrait)
     overflow: hidden
+
   @media screen and (max-width: $breakpoint-mobile)
     margin: 1rem
     width: calc(100% - ( 2 * 1rem))
@@ -112,7 +113,7 @@ export default {
     color: $color-primary
 .modal
   z-index: 500
-  position: absolute
+  position: fixed
   top: 0
   left: 0
   right: 0
