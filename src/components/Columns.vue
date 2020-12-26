@@ -58,14 +58,14 @@ export default {
     selectItem (item, itemId, columnIndex) {
       if (!this.hasChildren(item)) return
       if (isInitial(this.selectedIds)) {
-        // TODO: https://vuejs.org/v2/guide/reactivity.html#For-Arrays
-        this.selectedIds.length = 0
+        // see: https://vuejs.org/v2/guide/reactivity.html#For-Arrays
+        this.selectedIds.splice(0)
         this.initializeColumns()
       } else {
         // crop items, e.g. 5 columns exist and user clicks on item in second column
         // -> only the first two columns are still there and a new one will be added
-        // TODO: https://vuejs.org/v2/guide/reactivity.html#For-Arrays
-        this.selectedIds.length = columnIndex + 1
+        // see: https://vuejs.org/v2/guide/reactivity.html#For-Arrays
+        this.selectedIds.splice(columnIndex + 1)
       }
       this.selectedIds.push(itemId)
       this.scrollToRight()
@@ -109,6 +109,8 @@ export default {
               break
             case 'ArrowLeft':
               console.log('ArrowLeft')
+              // see: https://vuejs.org/v2/guide/reactivity.html#For-Arrays
+              this.selectedIds.splice(this.selectedIds.length - 1)
               break
           }
           this.scrollToRight()
