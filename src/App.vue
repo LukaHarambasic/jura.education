@@ -1,5 +1,13 @@
 <template>
   <div id="app">
+    <div class="modal orientation">
+      <div class="content">
+        <p>
+          Was bildest du dir ein dieses Meisterwerk im Portrait Modus auf nem Handy zu nutzen? Ne, merkste selber... macht keinen Sinn.
+          Also dreh dein Handy und dann passt des auch wieder
+        </p>
+      </div>
+    </div>
     <div
       class="modal"
       v-if="!isOnboarded"
@@ -75,6 +83,8 @@ export default {
   justify-content: flex-start
   align-content: stretch
   align-items: stretch
+  @media (hover: none) and (orientation: portrait)
+    overflow: hidden
   > main
     flex: 1 1 auto
   > .footer
@@ -121,4 +131,9 @@ export default {
       transition: $animation
       &:hover
         text-decoration: none
+.orientation
+  display: none
+  @media (hover: none) and (orientation: portrait)
+    display: block
+    background: rgba($color-surface, 1)
 </style>

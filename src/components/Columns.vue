@@ -141,7 +141,7 @@ export default {
   align-content: stretch
   align-items: stretch
   min-width: 25rem
-  height: calc(100% + 1px) // fixes cropped bottom border
+  height: 100%
   width: 100%
   overflow-x: scroll
   overflow-y: auto
