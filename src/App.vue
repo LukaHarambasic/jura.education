@@ -20,7 +20,7 @@
     </div>
     <div class="container">
       <button
-        class="button"
+        class="button beta"
         @click="open"
       >
         BETA
@@ -80,12 +80,12 @@ export default {
   > .footer
 .button
   position: absolute
-  top: 1rem
-  right: 4rem
+  top: .5rem
+  right: .5rem
   padding: 1rem 1rem
   background: $color-primary
   color: $color-light
-  font-size: 1rem
+  font-size: 0.8rem
   letter-spacing: 2px
   transition: $animation
   border: 1px solid $color-primary

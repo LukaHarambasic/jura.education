@@ -43,10 +43,9 @@ footer
   align-content: center
   align-items: center
   position: absolute
-  margin: 1rem 4rem
-  bottom: 0
-  left: 0
-  width: calc(100% - ( 2 * 4rem))
+  bottom: .5rem
+  left: .5rem
+  right: .5rem
   background: $color-primary
   color: $color-light
   border: 2px solid $color-primary
