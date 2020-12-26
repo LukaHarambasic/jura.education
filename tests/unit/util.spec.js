@@ -46,4 +46,6 @@ describe('util.js', () => {
     expect(isInPath([], 1)).toBe(false)
     expect(isInPath([4, 5, 49], 2)).toBe(false)
   })
+  // TODO isInital
+  // TODO is allowed key
 })

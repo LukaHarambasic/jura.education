@@ -95,6 +95,7 @@ describe('Columns.vue', () => {
     expect(selectedIds).toStrictEqual([1, 905])
     // TODO: also test what is visible on ui
   })
+  // TODO: arrows -> up, right, left per one and different combinations + ui
   // TODO: test columns for change: https://vuejs.org/v2/guide/reactivity.html#For-Arrays
   // TODO: test reset in columns
   // TODO: keyboard navigation with edge cases

@@ -91,24 +91,20 @@ export default {
           const nextColumnFirstItemId = this.columns[columnsLength - 1][0].id
           switch (key) {
             case 'ArrowDown':
-              console.log('ArrowDown')
               // The following is equal to: this.selectedIds[selectedIdsIndexToReplace] = nextSelectedItemId
               // see: https://vuejs.org/v2/guide/reactivity.html#For-Arrays
               this.$set(this.selectedIds, selectedIdsIndexToReplace, nextSelectedItemId)
               break
             case 'ArrowUp':
-              console.log('ArrowUp')
               // see: https://vuejs.org/v2/guide/reactivity.html#For-Arrays
               this.$set(this.selectedIds, selectedIdsIndexToReplace, previousSelectedItemId)
               break
             case 'ArrowRight':
-              console.log('ArrowRight')
               if (hasChildren(selectedItem)) {
                 this.selectedIds.push(nextColumnFirstItemId)
               }
               break
             case 'ArrowLeft':
-              console.log('ArrowLeft')
               // see: https://vuejs.org/v2/guide/reactivity.html#For-Arrays
               this.selectedIds.splice(this.selectedIds.length - 1)
               break
