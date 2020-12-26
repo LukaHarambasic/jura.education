@@ -10,6 +10,14 @@ module.exports = {
     name: 'jura.education',
     themeColor: '#50223C',
     msTileColor: '#50223C',
-    orientation: 'landscape'
+    orientation: 'landscape',
+    assetsVersion: '2',
+    iconPaths: {
+      favicon32: 'img/icons/favicon-32x32.png',
+      favicon16: 'img/icons/favicon-16x16.png',
+      appleTouchIcon: 'img/icons/apple-touch-icon-512x512.png',
+      maskIcon: 'img/icons/safari-pinned-tab.svg',
+      msTileImage: 'img/icons/mstile-150-150.png'
+    }
   }
 }
