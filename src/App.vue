@@ -2,7 +2,7 @@
   <div id="app">
     <div class="modal orientation">
       <div class="content">
-        <h2>Bitte drehen! 🔄</h2>
+        <h2>🔄 Bitte drehen!</h2>
         <p>
           Was bildest du dir ein dieses Meisterwerk im Portrait Modus auf nem Handy zu nutzen? Ne, merkste selber... macht keinen Sinn.
           Also dreh dein Handy und dann passt des auch wieder!
@@ -85,6 +85,8 @@ export default {
   justify-content: flex-start
   align-content: stretch
   align-items: stretch
+  @media (hover: none) and (orientation: portrait)
+    overflow: hidden
   > main
     flex: 1 1 auto
 .button
