@@ -89,7 +89,6 @@ export default {
   align-items: stretch
   @media (hover: none) and (orientation: portrait)
     overflow: hidden
-
   @media screen and (max-width: $breakpoint-mobile)
     margin: 1rem
     width: calc(100% - ( 2 * 1rem))
@@ -128,7 +127,7 @@ export default {
   .content
     width: 64rem
     margin: 4rem
-    @media (hover: none)
+    @media screen and (max-width: 72rem)
       width: calc(100% - (2 * 4rem))
       margin: 4rem
     h2

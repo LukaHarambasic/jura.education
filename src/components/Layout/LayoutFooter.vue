@@ -19,7 +19,10 @@
       </li>
     </ul>
     <div class="logo">
-      <router-link to="/">
+      <router-link
+        to="/"
+        alt="jura.education"
+      >
         <base-logo />
       </router-link>
     </div>
