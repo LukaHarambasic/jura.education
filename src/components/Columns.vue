@@ -40,6 +40,13 @@ export default {
       required: true
     }
   },
+  watch: {
+    selectedIds: function (value) {
+      if (this.$route.query.selected !== value.toString()) {
+        this.$router.push({ path: '/', query: { selected: value.toString() } })
+      }
+    }
+  },
   created () {
     this.loadQuery(this.$route.query)
     if (isInitial(this.selectedIds)) {
