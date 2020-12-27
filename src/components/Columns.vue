@@ -41,7 +41,10 @@ export default {
     }
   },
   created () {
-    this.initializeColumns()
+    this.loadQuery(this.$route.query)
+    if (isInitial(this.selectedIds)) {
+      this.initializeColumns()
+    }
     document.onkeydown = this.onkeydown
   },
   computed: {
@@ -111,6 +114,17 @@ export default {
           }
           this.scrollToRight()
         }
+      }
+    },
+    loadQuery (query) {
+      const querySelected = query.selected
+      if (querySelected !== undefined && querySelected !== '') {
+        const regex = new RegExp('^[0-9]*$')
+        const querySelectedIds = querySelected.split(',')
+          .filter(_number => regex.test(_number))
+          .map(_number => parseInt(_number))
+        // make the ids unique by using a Set
+        this.selectedIds = [...new Set(querySelectedIds)]
       }
     },
     // HELPERS
