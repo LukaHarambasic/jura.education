@@ -41,7 +41,7 @@ export default {
     }
   },
   watch: {
-    selectedIds: function (value) {
+    selectedIds (value) {
       if (this.$route.query.selected !== value.toString()) {
         this.$router.push({ path: '/', query: { selected: value.toString() } })
       }
@@ -49,7 +49,7 @@ export default {
   },
   created () {
     this.loadQuery(this.$route.query)
-    if (isInitial(this.selectedIds)) {
+    if (this.selectedIds.length < 1) {
       this.initializeColumns()
     }
     document.onkeydown = this.onkeydown
@@ -80,7 +80,7 @@ export default {
       this.selectedIds.push(itemId)
       this.scrollToRight()
     },
-    onkeydown: function (event) {
+    onkeydown (event) {
       const key = event.key
       if (isAllowedKey(key)) {
         if (isInitial(this.selectedIds)) {

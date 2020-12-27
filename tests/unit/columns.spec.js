@@ -1,25 +1,27 @@
-import { shallowMount } from '@vue/test-utils'
+import { shallowMount, createLocalVue } from '@vue/test-utils'
+import VueRouter from 'vue-router'
 import Columns from '@/components/Columns'
 import mock from '@/assets/mock.json'
 
 describe('Columns.vue', () => {
   let component
+  const localVue = createLocalVue()
+  localVue.use(VueRouter)
+  const router = new VueRouter()
   beforeEach(() => {
     component = shallowMount(Columns, {
+      localVue,
+      router,
       propsData: { tree: mock }
     })
   })
   it('displays initial column', () => {
     const columns = component.findAll('.column')
     expect(columns.length).toBe(1)
-    expect(columns.length).not.toBe(0)
-    expect(columns.length).not.toBe(2)
   })
   it('is initial first item text "Öffentliches Recht"', () => {
     const items = component.findAll('.item')
     expect(items.at(0).text()).toMatch('Öffentliches Recht')
-    expect(items.at(0).text()).not.toMatch('Strafrecht')
-    expect(items.at(0).text()).not.toMatch('Zivilrecht')
   })
   it('has initial column three children', () => {
     const items = component.findAll('.item')
@@ -29,8 +31,6 @@ describe('Columns.vue', () => {
     const items = component.findAll('.item')
     await items.at(0).trigger('click')
     expect(component.vm.selectedIds).toStrictEqual([1, 2])
-    expect(component.vm.selectedIds).not.toStrictEqual([])
-    expect(component.vm.selectedIds).not.toStrictEqual([2, 3])
   })
   it('click at first item in first column and test if items contains "§ 1 Abwehr von Maßnahmen"', async () => {
     const items = component.findAll('.item')
@@ -42,8 +42,6 @@ describe('Columns.vue', () => {
   it('computed columns reflects length of selected ids', () => {
     component.setData({ selectedIds: [1, 2] })
     expect(component.vm.columns.length).toBe(2)
-    expect(component.vm.columns.length).not.toBe(3)
-    expect(component.vm.columns.length).not.toBe(1)
   })
   it('computed columns contain the correct items', () => {
     const FIRST_COLUM = ['Öffentliches Recht', 'Zivilrecht', 'Strafrecht']
@@ -56,47 +54,50 @@ describe('Columns.vue', () => {
     expect(isSecondColumnCorrect).toBe(true)
   })
   it('initial keyboard press: ArrowDown', () => {
-    const selectedIds = component.vm.selectedIds
+    console.log('before', component.vm.selectedIds)
+    component.setData({ selectedIds: [1] })
     component.vm.onkeydown({ key: 'ArrowDown' })
-    expect(selectedIds).toStrictEqual([1, 2])
+    console.log('after', component.vm.selectedIds)
+    expect(component.vm.selectedIds).toStrictEqual([1, 2])
   })
   it('initial keyboard press: ArrowUp', () => {
-    const selectedIds = component.vm.selectedIds
+    component.setData({ selectedIds: [1] })
     component.vm.onkeydown({ key: 'ArrowUp' })
-    expect(selectedIds).toStrictEqual([1, 2])
+    expect(component.vm.selectedIds).toStrictEqual([1, 2])
   })
   it('initial keyboard press: ArrowLeft', () => {
-    const selectedIds = component.vm.selectedIds
+    component.setData({ selectedIds: [1] })
     component.vm.onkeydown({ key: 'ArrowLeft' })
-    expect(selectedIds).toStrictEqual([1, 2])
+    expect(component.vm.selectedIds).toStrictEqual([1, 2])
   })
   it('initial keyboard press: ArrowRight', () => {
-    const selectedIds = component.vm.selectedIds
+    component.setData({ selectedIds: [1] })
     component.vm.onkeydown({ key: 'ArrowRight' })
-    expect(selectedIds).toStrictEqual([1, 2])
+    expect(component.vm.selectedIds).toStrictEqual([1, 2])
   })
   it('initial keyboard press: d', () => {
-    const selectedIds = component.vm.selectedIds
+    component.setData({ selectedIds: [1] })
     component.vm.onkeydown({ key: 'd' })
-    expect(selectedIds).not.toStrictEqual([1, 2])
+    expect(component.vm.selectedIds).toStrictEqual([1])
   })
   it('second keyboard press: ArrowDown', () => {
-    const selectedIds = component.vm.selectedIds
+    component.setData({ selectedIds: [1] })
     component.vm.onkeydown({ key: 'ArrowDown' })
     component.vm.onkeydown({ key: 'ArrowDown' })
-    expect(selectedIds).toStrictEqual([1, 904])
+    expect(component.vm.selectedIds).toStrictEqual([1, 904])
     // TODO: also test what is visible on ui
   })
   it('third keyboard press: ArrowDown', () => {
-    const selectedIds = component.vm.selectedIds
+    component.setData({ selectedIds: [1] })
     component.vm.onkeydown({ key: 'ArrowDown' })
     component.vm.onkeydown({ key: 'ArrowDown' })
     component.vm.onkeydown({ key: 'ArrowDown' })
-    expect(selectedIds).toStrictEqual([1, 905])
+    expect(component.vm.selectedIds).toStrictEqual([1, 905])
     // TODO: also test what is visible on ui
   })
   // TODO: arrows -> up, right, left per one and different combinations + ui
   // TODO: test columns for change: https://vuejs.org/v2/guide/reactivity.html#For-Arrays
   // TODO: test reset in columns
   // TODO: keyboard navigation with edge cases
+  // TODO: test query params
 })
