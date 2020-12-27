@@ -1,5 +1,16 @@
 <template>
   <div id="app">
+    <layout-cookie />
+    <div class="modal orientation">
+      <div class="content">
+        <h2>🔄 Bitte drehen!</h2>
+        <p>
+          Was bildest du dir ein dieses Meisterwerk im Portrait Modus auf nem Handy zu nutzen? Ne, merkste selber... macht keinen Sinn.
+          Also dreh dein Handy und dann passt des auch wieder!
+        </p>
+        <p>Dankeschön ❤️</p>
+      </div>
+    </div>
     <div
       class="modal"
       v-if="!isOnboarded"
@@ -20,7 +31,7 @@
     </div>
     <div class="container">
       <button
-        class="button"
+        class="button beta"
         @click="open"
       >
         BETA
@@ -35,9 +46,10 @@
 
 <script>
 import LayoutFooter from '@/components/Layout/LayoutFooter'
+import LayoutCookie from '@/components/Layout/LayoutCookies'
 
 export default {
-  components: { LayoutFooter },
+  components: { LayoutCookie, LayoutFooter },
   data () {
     return {
       isOnboarded: false
@@ -64,7 +76,7 @@ export default {
 }
 </script>
 
-<style lang="sass">
+<style lang="sass" scoped>
 .container
   margin: 2rem
   width: calc(100% - ( 2 * 2rem))
@@ -75,17 +87,22 @@ export default {
   justify-content: flex-start
   align-content: stretch
   align-items: stretch
+  @media (hover: none) and (orientation: portrait)
+    overflow: hidden
+  @media screen and (max-width: $breakpoint-mobile)
+    margin: 1rem
+    width: calc(100% - ( 2 * 1rem))
+    min-height: 100vh
   > main
     flex: 1 1 auto
-  > .footer
 .button
   position: absolute
-  top: 1rem
-  right: 4rem
-  padding: 1rem 1rem
+  top: .5rem
+  right: .5rem
+  padding: .5rem
   background: $color-primary
   color: $color-light
-  font-size: 1rem
+  font-size: 0.8rem
   letter-spacing: 2px
   transition: $animation
   border: 1px solid $color-primary
@@ -95,11 +112,12 @@ export default {
     color: $color-primary
 .modal
   z-index: 500
-  position: absolute
+  position: fixed
   top: 0
   left: 0
   right: 0
   bottom: 0
+  overflow-y: scroll
   background: rgba($color-surface, 0.9)
   display: flex
   flex-direction: column
@@ -109,6 +127,9 @@ export default {
   .content
     width: 64rem
     margin: 4rem
+    @media screen and (max-width: 72rem)
+      width: calc(100% - (2 * 4rem))
+      margin: 4rem
     h2
       font-size: 2.5rem
     p
@@ -121,4 +142,10 @@ export default {
       transition: $animation
       &:hover
         text-decoration: none
+.orientation
+  display: none
+  @media (hover: none) and (orientation: portrait)
+    z-index: 1000
+    display: block
+    background: rgba($color-surface, 1)
 </style>

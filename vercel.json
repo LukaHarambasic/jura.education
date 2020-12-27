@@ -2,15 +2,6 @@
   "functions": {
     "api/all.js": {
       "includeFiles": "content/**"
-    },
-    "api/oeffentlichesrecht.js": {
-      "includeFiles": "content/**"
-    },
-    "api/strafrecht.js": {
-      "includeFiles": "content/**"
-    },
-    "api/zivilrecht.js": {
-      "includeFiles": "content/**"
     }
   }
 }
