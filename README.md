@@ -8,7 +8,7 @@
 
 Jeder kann [jura.education](https://jura.education) mit machen und nicht nur bei dem technischen Kram, auch beim Inhalt. Dafür kannst du Dateien direkt hier im Web bearbeiten, das nutzt man meistens für kleinere Änderungen. Falls du richtig loslegen willst musst du dir Git auf deinem Computer installieren und solltest am besten schon ein bisschen Ahnung haben wie man damit umgeht. So oder so musst du einen Pull Request erstellen, dieser enthält dann deine Vorgeschlagenen Änderungen und wenn diese für gut befunden werden übernehmen wir sie in die Website.
 
-Die Ordner und Dateien, welche die Webseite bilden findest du unter `api/content`, ab hier solltest du dich dann zurecht finden falls du [jura.education](https://jura.education) schon einige ;ale genutzt hast.
+Die Ordner und Dateien, welche die Webseite bilden findest du unter `api/content`, ab hier solltest du dich dann zurecht finden falls du [jura.education](https://jura.education) schon einige male genutzt hast.
 
 #### Direkt in GitHub bearbeiten
 
