@@ -18,6 +18,9 @@ Vue.prototype.$axios.defaults.baseURL = process.env.NODE_ENV === 'production' ? 
 const getGDPR = localStorage.getItem('GDPR:accepted')
 Vue.use(VueGtag, {
   config: { id: 'G-XN5VCRF3TF' },
+  params: {
+    anonymize_ip: true
+  },
   appName: 'jura.education',
   bootstrap: getGDPR === 'true',
   enabled: getGDPR === 'true',
