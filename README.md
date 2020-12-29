@@ -1,8 +1,8 @@
-<h2 align="center">jura.education</h2>
-
 <p align="center">
     <img src="./docs/img/logo.svg" alt="jura.education - Logo" width="200" height="200" />
 </p>
+
+<h2 align="center">jura.education</h2>
 
 ### Inhalt bearbeiten
 
