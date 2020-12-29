@@ -96,7 +96,7 @@ export default {
   > main
     flex: 1 1 auto
 .button
-  position: absolute
+  position: fixed
   top: .5rem
   right: .5rem
   padding: .5rem
