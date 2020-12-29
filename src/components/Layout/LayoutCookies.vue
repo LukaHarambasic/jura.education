@@ -3,10 +3,11 @@
     v-if="isOpen"
     class="cookies"
   >
-    <h2>Cookies</h2>
+    <h2>
+      Datenverarbeitung deiner Nutzerdaten durch Google
+    </h2>
     <p>
-      Wir würden gerne ein paar Statistiken über unsere Nutzer erfassen, daher müsstest du uns erlauben Cookies zu benutzen.
-      Wenn nicht ist das auch okay.
+      Wir würden gerne ein paar Statistiken über unsere Nutzer erfassen. Zu diesem Zweck müssen wir personenbezogene Daten zum Nutzungsverhalten an Google übermitteln. Diese Daten betreffen deine Verweildauer auf der Seite, die Zahl deiner Interaktionen sowie deine regionale Herkunft. Die Weiterverarbeitung erfolgt dann im Wesentlichen durch Google und zu deren eigenen Zwecken in den USA. Wenn du damit nicht einverstanden bist, kannst du die Datenverarbeitung verhindern, indem du auf 'Ablehnen' drückst.
     </p>
     <div class="buttons">
       <button
@@ -80,6 +81,7 @@ export default {
   z-index: 2000
   position: fixed
   right: 2rem
+  left: 2rem
   bottom: 2rem
   display: flex
   flex-direction: column
@@ -87,14 +89,10 @@ export default {
   justify-content: flex-start
   align-content: stretch
   align-items: stretch
-  max-width: 50%
   padding: 2rem
   background: $color-light
   transition: $animation
   border: 2px solid $color-accent
-  @media screen and (max-width: $breakpoint-mobile)
-    max-width: none
-    left: 2rem
 .buttons
   display: flex
   flex-direction: row
